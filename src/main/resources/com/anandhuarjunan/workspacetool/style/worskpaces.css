@@ -1,0 +1,11 @@
+.workspace_name {
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 20;
+	-fx-text-fill: black;
+}
+
+.workspace_location {
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: grey;
+}

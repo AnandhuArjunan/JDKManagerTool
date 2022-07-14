@@ -1,0 +1,73 @@
+@import '../fonts/Fonts.css';
+@import 'Colours.css';
+
+.header-label {
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 25;
+	-fx-text-fill: -mfx-text-he;
+}
+
+.header-label .text {
+	-fx-font-smoothing-type: lcd;
+}
+
+.sub-header-label {
+	-fx-font-family: 'Visby Round CF Demi Bold';
+	-fx-text-fill: -mfx-text-he;
+}
+
+.sub-header-label .text {
+	-fx-font-smoothing-type: lcd;
+}
+
+.grid-pane {
+	-fx-background-color: transparent;
+		-fx-background-radius: 20;
+
+}
+
+.grid-background {
+	-fx-background-color: #e8eaf6;
+	-fx-background-radius: 20;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);
+}
+.grid-background .dirText{
+	-fx-background-radius: 5;
+
+}
+
+#custom_button {
+	-fx-background-color: -mfx-purple;
+	-fx-text-fill: white;
+}
+
+.header-label-small {
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: -mfx-text-he;
+}
+
+.header-label-status {
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: -mfx-text-he;
+}
+
+.inputText{
+			-fx-background-radius: 20;
+
+}
+.statusBar{
+		-fx-background-color: #7a0ed9;
+		-fx-border-radius: 10;
+			-fx-background-radius: 10;
+
+
+}
+
+.statusBlock{
+	-fx-background-color: #e8eaf6;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-font-family: 'Visby Round CF Demi Bold';
+}

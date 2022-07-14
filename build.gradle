@@ -1,0 +1,67 @@
+plugins {
+  id 'application'
+  id 'eclipse'
+  id 'org.openjfx.javafxplugin' version '0.0.9'
+  id 'org.beryx.jlink' version '2.12.0'
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = "16"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+mainClassName = "$moduleName/com.anandhuarjunan.workspacetool.MainApp"
+
+eclipse {
+    classpath {
+        file {
+            whenMerged {
+                entries.findAll { it.properties.kind.equals('lib') }.each {
+                    it.entryAttributes['module'] = 'true'
+                }
+            }
+        }
+    }
+}
+dependencies {
+    compile files('libs/ExtractPrintableTextLib.jar')
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.33.Final'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api'
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime'
+    implementation group: 'io.github.palexdev', name: 'materialfx', version: '11.13.5'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation 'org.javatuples:javatuples:1.2'
+//<a href='https://www.freepik.com/vectors/no-data'>No data vector created by storyset - www.freepik.com</a>
+}
+
+
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'WorkspaceManagerTool'
+    }
+}
+
+distZip {
+    into(project.name) {
+        from '.'
+        include 'data/*'
+    }
+}
+
+run {
+         jvmArgs("-Dh2.system.home=data")
+
+
+}
+

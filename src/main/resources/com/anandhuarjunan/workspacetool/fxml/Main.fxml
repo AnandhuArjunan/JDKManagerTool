@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (C) 2022 Parisi Alessandro
+  ~ This file is part of MaterialFX (https://github.com/palexdev/MaterialFX).
+  ~
+  ~ MaterialFX is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ MaterialFX is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with MaterialFX.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.font.MFXFontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.MainController">
+   <left>
+      <VBox styleClass="sidebar" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="header" text="Workspace">
+               <graphic>
+                  <MFXFontIcon description="mfx-logo" size="52.0" />
+               </graphic>
+            </Label>
+            <Label styleClass="menu-label" text="Components">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Label>
+            <MFXScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="navBar" spacing="5.0" styleClass="navbar" />
+               </content>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </MFXScrollPane>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="20.0" right="20.0" top="60.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="wHeader" alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                  <MFXFontIcon fx:id="minimize" description="mfx-circle" size="15.0" styleClass="always-on-top-icon" />
+                  <MFXFontIcon fx:id="maximize" description="mfx-circle" size="15.0" styleClass="minimize-icon" />
+                  <MFXFontIcon fx:id="close" description="mfx-circle" size="15.0" styleClass="close-icon" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <StackPane fx:id="contentPane" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </StackPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
