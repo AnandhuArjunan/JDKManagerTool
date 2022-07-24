@@ -1,0 +1,22 @@
+@import '../fonts/Fonts.css';
+@import 'Colours.css';
+
+
+.content-pane{
+    -fx-background-color:-block-gradient;
+	-fx-background-radius: 20;
+	-fx-border-radius: 10;
+}
+
+.content-pane .name{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: black;
+}
+
+.content-pane .location{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: grey;
+}
+

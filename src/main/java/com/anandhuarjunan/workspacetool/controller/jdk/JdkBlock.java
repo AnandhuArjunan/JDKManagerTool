@@ -4,13 +4,14 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.anandhuarjunan.workspacetool.controller.common.NormalNameLocBlockController;
 import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-public class JdkBlock implements Initializable{
+public class JdkBlock extends NormalNameLocBlockController implements Initializable{
 
 	@FXML
     private Label name;
@@ -20,14 +21,13 @@ public class JdkBlock implements Initializable{
 	private JavaEnv javaEnv = null;
 
 	public JdkBlock(JavaEnv javaEnv) {
+		super(javaEnv.getJavaType().getName()+" "+javaEnv.getVersion(), javaEnv.getExecutableLoc(),javaEnv.getJavaType().getIcon());
 		this.javaEnv  = javaEnv;
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(Objects.nonNull(javaEnv)) {
-			name.setText(javaEnv.getName());
-			wlocation.setText(javaEnv.getExecutableLoc());
-		}
+	super.initialize(location, resources);		addStyleSheet("style/blocks/javablock.css");
+
 	}
 
 }

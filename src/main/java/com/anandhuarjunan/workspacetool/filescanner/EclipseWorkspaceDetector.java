@@ -1,6 +1,7 @@
 package com.anandhuarjunan.workspacetool.filescanner;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -9,7 +10,7 @@ public class EclipseWorkspaceDetector extends AbstractFileDetector {
 
 
 
-	public EclipseWorkspaceDetector(File root, Consumer<File> allFileReadConsumer,
+	public EclipseWorkspaceDetector(List<File> root, Consumer<File> allFileReadConsumer,
 			Consumer<File> detectedFileConsumer) {
 		super(root, allFileReadConsumer, detectedFileConsumer);
 	}

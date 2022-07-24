@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Optional;
 
 import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
+import com.anandhuarjunan.workspacetool.util.Util;
 
 public class WindowsEclipseWorkspaceMetadata extends AbstractFileMetadata<Workspaces> {
 
@@ -24,10 +25,10 @@ public class WindowsEclipseWorkspaceMetadata extends AbstractFileMetadata<Worksp
 	@Override
 	protected Workspaces getMetadata() {
 		Workspaces workspaces = new Workspaces();
-
 		File workspaceLoc = rootLoc.getAbsoluteFile().getParentFile();
 	 	workspaces.setName(workspaceLoc.getAbsoluteFile().getParentFile().getName()+File.separator+workspaceLoc.getName());
 	  	workspaces.setLocation(workspaceLoc.getAbsolutePath());
+	  	workspaces.setIde(Util.fetchIde("ECLIPSE"));
 	  	return workspaces;
 	}
 

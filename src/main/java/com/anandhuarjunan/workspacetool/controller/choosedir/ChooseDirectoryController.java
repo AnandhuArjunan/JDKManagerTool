@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -28,7 +29,6 @@ import org.javatuples.Triplet;
 
 import com.anandhuarjunan.workspacetool.HibernateUtils;
 import com.anandhuarjunan.workspacetool.ResourcesLoader;
-import com.anandhuarjunan.workspacetool.Util;
 import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.constants.ReloadableViews;
 import com.anandhuarjunan.workspacetool.controller.ReloadableController;
@@ -38,18 +38,21 @@ import com.anandhuarjunan.workspacetool.filemetadata.AbstractFileMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsAndroidStudioMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsEclipseIDEMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsEclipseWorkspaceMetadata;
+import com.anandhuarjunan.workspacetool.filemetadata.WindowsStsIdeMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.JavaJdkMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.JavaJreMetadata;
 import com.anandhuarjunan.workspacetool.filescanner.AbstractFileDetector;
 import com.anandhuarjunan.workspacetool.filescanner.EclipseWorkspaceDetector;
 import com.anandhuarjunan.workspacetool.filescanner.ide.windows.AndroidStudioIDEDetector;
 import com.anandhuarjunan.workspacetool.filescanner.ide.windows.EclipseIDEDetector;
+import com.anandhuarjunan.workspacetool.filescanner.ide.windows.StsIdeDetector;
 import com.anandhuarjunan.workspacetool.filescanner.jdk.windows.WindowsJdkDetector;
 import com.anandhuarjunan.workspacetool.filescanner.jdk.windows.WindowsJreDetector;
 
 import com.anandhuarjunan.workspacetool.util.Action;
 import com.anandhuarjunan.workspacetool.util.AnimationUtils;
 import com.anandhuarjunan.workspacetool.util.JFXUtils;
+import com.anandhuarjunan.workspacetool.util.Util;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXProgressBar;
@@ -143,6 +146,9 @@ public class ChooseDirectoryController implements Initializable {
 	@FXML
 	private BorderPane mainWindow;
 
+    @FXML
+    private MFXFontIcon closeResult;
+
 	private EnumMap<ReloadableViews, Object> dependencyControllers = null;
 
 	private ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -159,9 +165,14 @@ public class ChooseDirectoryController implements Initializable {
 		hideProgessPane();
 		addSyncButtonHandlers();
 		mainWindow.setBottom(null);
+		closeResult.setOnMouseClicked(ev->hideStatus());
 	}
 
-
+	private void hideStatus() {
+		enableButtons();
+		Action hideAction = ()->mainWindow.setBottom(null);
+		AnimationUtils.addAnimating(hideAction, AnimationUtils.fadeOutAnimationSupplier(statusPane));
+	}
 	public void addDependencyController(ReloadableViews key,Object controller) {
 		dependencyControllers.put(key, controller);
 	}
@@ -178,7 +189,11 @@ public class ChooseDirectoryController implements Initializable {
 
 	}
 
+	private void enableButtons() {
 
+		JFXUtils.enableNodes(workBtn,ideBtn,rootBtn,jdkBtn,syncAll,ideSync,jdkSync,workSync);
+
+	}
 	private void startRootSync() {
 
 		try {
@@ -190,6 +205,7 @@ public class ChooseDirectoryController implements Initializable {
 					.ofMetadata(new Triplet<>(jdkLoc.getText(),JavaJreMetadata.class, WindowsJreDetector.class))
 					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsAndroidStudioMetadata.class, AndroidStudioIDEDetector.class))
 					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsEclipseIDEMetadata.class, EclipseIDEDetector.class))
+					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsStsIdeMetadata.class, StsIdeDetector.class))
 					.ofMetadata(new Triplet<>(workLoc.getText(),WindowsEclipseWorkspaceMetadata.class, EclipseWorkspaceDetector.class))
 					.startSync();
 		} catch (Exception e) {
@@ -225,6 +241,7 @@ public class ChooseDirectoryController implements Initializable {
 					.haveToReload(ReloadableViews.IDE)
 					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsAndroidStudioMetadata.class, AndroidStudioIDEDetector.class))
 					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsEclipseIDEMetadata.class, EclipseIDEDetector.class))
+					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsStsIdeMetadata.class, StsIdeDetector.class))
 					.startSync();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -278,7 +295,13 @@ public class ChooseDirectoryController implements Initializable {
 			File selectedDirectory = directoryChooser.showDialog(clickAction.getScene().getWindow());
 			if (Objects.nonNull(selectedDirectory)) {
 				for (Pair<String, TextField> textField : textFields) {
-					textField.getValue().setText(selectedDirectory.getAbsolutePath());
+					String content = textField.getValue().getText();
+					if(content.trim().isEmpty() || rootBtn.getId().equalsIgnoreCase(clickAction.getId())) {
+						textField.getValue().setText(selectedDirectory.getAbsolutePath());
+					}else {
+						textField.getValue().setText(content+File.pathSeparator+selectedDirectory.getAbsolutePath());
+
+					}
 					Util.putSettings(textField.getKey(), selectedDirectory.getAbsolutePath());
 				}
 
@@ -299,11 +322,11 @@ public class ChooseDirectoryController implements Initializable {
 
 	}
 
-	public synchronized void onScanComplete(Optional<String> optional, int fileFound) {
+	public synchronized void onScanComplete(AbstractFileDetector abstractFileDetector, int fileFound) {
 
 		FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/resultblock.fxml"));
 		loader.setControllerFactory(
-				c -> new StatusBlockController(String.valueOf(fileFound), optional.orElseGet(() -> "")));
+				c -> new StatusBlockController(String.valueOf(fileFound), abstractFileDetector.name().orElseGet(() -> "")));
 		try {
 			Parent root = loader.load();
 			resultFlow.getChildren().add(root);
@@ -319,14 +342,17 @@ public class ChooseDirectoryController implements Initializable {
 		private Consumer<File> fileConsumer = null;
 		private AbstractFileDetector abstractFileDetector = null;
 
-		public SyncDirectory(String fileDirToScan,
-				Class<? extends AbstractFileMetadata<?>> metadataClass,
-				Class<? extends AbstractFileDetector> detectorClass) throws Exception {
-			this.metadataClass = metadataClass;
-			this.fileConsumer = file -> Platform.runLater(() -> scanning.setText(file.getAbsolutePath()));
-			Constructor<?> constructor = detectorClass.getConstructor(File.class, Consumer.class, Consumer.class);
-			abstractFileDetector = (AbstractFileDetector) constructor.newInstance(new File(fileDirToScan), fileConsumer,
-					null);
+		public SyncDirectory(String fileDirToScan,Class<? extends AbstractFileMetadata<?>> metadataClass,Class<? extends AbstractFileDetector> detectorClass) throws Exception {
+			if(Objects.nonNull(fileDirToScan)) {
+				String[] files = fileDirToScan.split(File.pathSeparator);
+				this.metadataClass = metadataClass;
+				this.fileConsumer = file -> Platform.runLater(() -> scanning.setText(file.getAbsolutePath()));
+				Constructor<?> constructor = detectorClass.getConstructor(List.class, Consumer.class, Consumer.class);
+				abstractFileDetector = (AbstractFileDetector) constructor.newInstance(com.anandhuarjunan.workspacetool.util.FileUtils.toFile(files), fileConsumer,null);
+			}else {
+				throw new Exception();
+			}
+
 		}
 
 		private void sync() {
@@ -358,7 +384,7 @@ public class ChooseDirectoryController implements Initializable {
 			tx.commit();
 			session2.close();
 			Platform.runLater(() -> {
-				onScanComplete(abstractFileDetector.name(), files.size());
+				onScanComplete(abstractFileDetector, files.size());
 			});
 
 		}
@@ -432,9 +458,10 @@ public class ChooseDirectoryController implements Initializable {
 			        public void run()
 			        {
 			        	Platform.runLater(()->{
-			        		enableButtons();
-			        		Action hideAction = ()->mainWindow.setBottom(null);
-			    			AnimationUtils.addAnimating(hideAction, AnimationUtils.fadeOutAnimationSupplier(statusPane));
+			        		if(null != mainWindow.getBottom()) {
+				        		hideStatus();
+
+			        		}
 			        	});
 
 			        }
@@ -443,17 +470,15 @@ public class ChooseDirectoryController implements Initializable {
 			timer.schedule(task,10000l);
 		}
 
+
+
 		private void showProgessPane() {
 			JFXUtils.addNodeIfNotExists(progressContainer, ongoingStatus);
 			JFXUtils.addNodeIfNotExists(progressContainer, scanning);
 			JFXUtils.addNodeIfNotExists(progressContainer, progressBar);
 		}
 
-		private void enableButtons() {
 
-			JFXUtils.enableNodes(workBtn,ideBtn,rootBtn,jdkBtn,syncAll,ideSync,jdkSync,workSync);
-
-		}
 
 		private void disableButtons() {
 

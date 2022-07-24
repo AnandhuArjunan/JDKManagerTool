@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,30 +17,31 @@ public class JavaEnv {
     @Column(name="JE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-    @Column(name="JE_NAME")
-	private String name;
     @Column(name="JE_COMPANY")
- 	private Double company;
+ 	private String company;
     @Column(name="JE_VERSION")
  	private String version;
     @Column(name="JE_EXECUTABLE_LOC")
  	private String executableLoc;
+
+
+    @Column(name="JE_JAVA_HOME")
+ 	private String javaHome;
+
+    @OneToOne
+	@JoinColumn(name = "JE_JT_ID")
+ 	private JavaTypes javaType;
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Double getCompany() {
+	public String getCompany() {
 		return company;
 	}
-	public void setCompany(Double company) {
+	public void setCompany(String company) {
 		this.company = company;
 	}
 	public String getVersion() {
@@ -52,6 +55,18 @@ public class JavaEnv {
 	}
 	public void setExecutableLoc(String executableLoc) {
 		this.executableLoc = executableLoc;
+	}
+	public String getJavaHome() {
+		return javaHome;
+	}
+	public void setJavaHome(String javaHome) {
+		this.javaHome = javaHome;
+	}
+	public JavaTypes getJavaType() {
+		return javaType;
+	}
+	public void setJavaType(JavaTypes javaType) {
+		this.javaType = javaType;
 	}
 
 

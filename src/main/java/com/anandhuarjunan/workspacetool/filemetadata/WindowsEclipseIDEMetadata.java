@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Optional;
 
 import com.anandhuarjunan.workspacetool.persistance.models.WindowsIDE;
+import com.anandhuarjunan.workspacetool.util.Util;
 
 public class WindowsEclipseIDEMetadata extends AbstractFileMetadata<WindowsIDE> {
 
@@ -20,8 +21,8 @@ public class WindowsEclipseIDEMetadata extends AbstractFileMetadata<WindowsIDE> 
 	protected WindowsIDE getMetadata() {
 
 		WindowsIDE ide = new WindowsIDE();
-		ide.setName(rootLoc.getName());
 		ide.setLocation(rootLoc.getAbsolutePath());
+		ide.setIde(Util.fetchIde("ECLIPSE"));
 
 		return ide;
 	}

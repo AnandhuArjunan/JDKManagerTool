@@ -17,10 +17,11 @@ import org.hibernate.Transaction;
 
 import com.anandhuarjunan.workspacetool.HibernateUtils;
 import com.anandhuarjunan.workspacetool.ResourcesLoader;
-import com.anandhuarjunan.workspacetool.Util;
 import com.anandhuarjunan.workspacetool.controller.NoDataController;
 import com.anandhuarjunan.workspacetool.controller.ReloadableController;
+import com.anandhuarjunan.workspacetool.controller.common.NormalNameLocBlockController;
 import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
+import com.anandhuarjunan.workspacetool.util.Util;
 
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.fxml.FXML;
@@ -51,7 +52,6 @@ public class WorkspacesController implements Initializable,ReloadableController,
 
 		loadWorkspaces();
 
-
 		}
 
 
@@ -69,9 +69,8 @@ public class WorkspacesController implements Initializable,ReloadableController,
 		    TypedQuery<Workspaces> allQuery = session2.createQuery(all);
 		    List<Workspaces> workspacesResult =  allQuery.getResultList();
 
-
 		    workspacesResult.forEach(w->{
-			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/workspaces/block.fxml"));
+			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/common/CommonNameLocBlock.fxml"));
 				loader.setControllerFactory(c -> new WorkspaceBlock(w));
 				try {
 					Parent root = loader.load();
@@ -82,7 +81,7 @@ public class WorkspacesController implements Initializable,ReloadableController,
 				}
 		  });
 
-			 addNoDataController(workspaces, mainPane, contentPane);
+	     addNoDataController(workspaces, mainPane, contentPane);
 
 		 tx.commit();
 		 session2.close();

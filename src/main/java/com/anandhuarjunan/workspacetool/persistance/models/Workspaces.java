@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +21,11 @@ public class Workspaces {
 	private String location;
     @Column(name="W_NAME")
  	private String name;
+
+    @OneToOne
+	@JoinColumn(name = "W_IDE_ID")
+ 	private Ides ide;
+
 	public Integer getId() {
 		return id;
 	}
@@ -36,6 +43,12 @@ public class Workspaces {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Ides getIde() {
+		return ide;
+	}
+	public void setIde(Ides ide) {
+		this.ide = ide;
 	}
 
 }

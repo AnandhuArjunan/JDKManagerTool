@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="555.0" styleClass="grid-pane" stylesheets="@../style/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.choosedir.ChooseDirectoryController">
@@ -31,9 +32,9 @@
                   <HBox alignment="CENTER" spacing="5.0">
                      <children>
                         <MFXTextField fx:id="rootLoc" alignment="CENTER" floatMode="BORDER" prefHeight="38.0" prefWidth="362.0" styleClass="text" HBox.hgrow="ALWAYS" />
-                        <MFXButton fx:id="rootBtn" text="Choose" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="rootBtn" minWidth="100.0" text="Add">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </MFXButton>
                      </children>
@@ -50,12 +51,12 @@
                   <HBox alignment="CENTER" spacing="5.0">
                      <children>
                         <MFXTextField fx:id="workLoc" alignment="CENTER" floatMode="BORDER" prefHeight="0.0" prefWidth="298.0" styleClass="text" HBox.hgrow="ALWAYS" />
-                        <MFXButton fx:id="workBtn" text="Choose" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="workBtn" minWidth="100.0" text="Add" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="custom_button" fx:id="workSync" prefHeight="33.0" prefWidth="62.0" text="SYNC" />
+                        <MFXButton id="custom_button" fx:id="workSync" minWidth="49.0" prefHeight="34.0" prefWidth="59.0" text="SYNC" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT">
@@ -70,9 +71,9 @@
                   <HBox alignment="CENTER" spacing="5.0">
                      <children>
                         <MFXTextField fx:id="ideLoc" alignment="CENTER" floatMode="BORDER" focusTraversable="false" prefHeight="0.0" prefWidth="298.0" styleClass="dirText" HBox.hgrow="ALWAYS" />
-                        <MFXButton fx:id="ideBtn" text="Choose" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="ideBtn" minWidth="100.0" text="Add" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </MFXButton>
                         <MFXButton id="custom_button" fx:id="ideSync" prefHeight="33.0" prefWidth="62.0" text="SYNC" />
@@ -90,12 +91,12 @@
                   <HBox alignment="CENTER" spacing="5.0">
                      <children>
                         <MFXTextField fx:id="jdkLoc" alignment="CENTER" floatMode="BORDER" prefHeight="0.0" prefWidth="298.0" styleClass="text" HBox.hgrow="ALWAYS" />
-                        <MFXButton fx:id="jdkBtn" text="Choose" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="jdkBtn" minWidth="100.0" text="Add" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="15.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton id="custom_button" fx:id="jdkSync" prefHeight="33.0" prefWidth="62.0" text="SYNC" />
+                        <MFXButton id="custom_button" fx:id="jdkSync" prefHeight="30.0" prefWidth="65.0" text="SYNC" />
                      </children>
                   </HBox>
                   <HBox fx:id="statusContainer" alignment="CENTER" spacing="5.0">
@@ -127,11 +128,23 @@
    <bottom>
       <MFXScrollPane fx:id="statusPane" fitToHeight="true" fitToWidth="true" prefHeight="76.0" prefWidth="555.0" styleClass="statusBar" BorderPane.alignment="CENTER">
          <content>
-            <FlowPane fx:id="resultFlow" alignment="CENTER" hgap="10.0" prefHeight="73.0" prefWidth="554.0" vgap="10.0">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </FlowPane>
+            <VBox alignment="CENTER_RIGHT">
+               <children>
+                  <MFXFontIcon fx:id="closeResult" description="mfx-x-circle" size="20.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                     <VBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXFontIcon>
+                  <FlowPane fx:id="resultFlow" alignment="CENTER" hgap="10.0" prefHeight="73.0" prefWidth="554.0" vgap="10.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </FlowPane>
+               </children>
+            </VBox>
          </content>
       </MFXScrollPane>
    </bottom>

@@ -1,0 +1,6 @@
+@import '../ideblock.css';
+
+.content-pane{
+	-fx-background-color:-eclipseideblock-gradient;
+}
+

@@ -2,7 +2,7 @@ package com.anandhuarjunan.workspacetool.controller;
 
 import java.io.IOException;
 
-import com.anandhuarjunan.workspacetool.Util;
+import com.anandhuarjunan.workspacetool.util.Util;
 
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.scene.control.Control;

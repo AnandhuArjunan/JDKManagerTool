@@ -15,13 +15,14 @@ module com.anandhuarjunan.workspacetool{
 	requires java.naming;
 	requires java.management;
 	requires javatuples;
+	requires commons.exec;
 
 	opens com.anandhuarjunan.workspacetool.controller to javafx.fxml;
 	opens com.anandhuarjunan.workspacetool.controller.choosedir to javafx.fxml;
 	opens com.anandhuarjunan.workspacetool.controller.workspaces to javafx.fxml;
 	opens com.anandhuarjunan.workspacetool.controller.ide to javafx.fxml;
 	opens com.anandhuarjunan.workspacetool.controller.jdk to javafx.fxml;
-
+	opens com.anandhuarjunan.workspacetool.controller.common to javafx.fxml;
 
 	opens com.anandhuarjunan.workspacetool.persistance.models to org.hibernate.orm.core;
 

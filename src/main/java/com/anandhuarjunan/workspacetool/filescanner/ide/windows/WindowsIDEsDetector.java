@@ -8,7 +8,7 @@ import com.anandhuarjunan.workspacetool.filescanner.ide.IDEDetector;
 
 public abstract class WindowsIDEsDetector extends IDEDetector {
 
-	protected WindowsIDEsDetector(File root, Consumer<File> allFileReadConsumer, Consumer<File> detectedFileConsumer) {
+	protected WindowsIDEsDetector(List<File> root, Consumer<File> allFileReadConsumer, Consumer<File> detectedFileConsumer) {
 		super(root, allFileReadConsumer, detectedFileConsumer);
 	}
 

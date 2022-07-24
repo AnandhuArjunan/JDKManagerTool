@@ -68,7 +68,7 @@ public class JdkController implements Initializable,ReloadableController,NoDataC
 		    TypedQuery<JavaEnv> allQuery = session2.createQuery(all);
 		    List<JavaEnv> workspacesResult =  allQuery.getResultList();
 		    workspacesResult.forEach(w->{
-			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/jdk/JdkBlock.fxml"));
+			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/common/CommonNameLocBlock.fxml"));
 				loader.setControllerFactory(c -> new JdkBlock(w));
 				try {
 					Parent root = loader.load();

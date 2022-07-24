@@ -13,9 +13,9 @@ public abstract class AbstractFileDetector implements Namable{
 	private List<File> resultfiles = null;
 	private Consumer<File> allFileReadConsumer = null;
 	private Consumer<File> detectedFileConsumer = null;
-	private File root = null;
+	private List<File> root = null;
 
-	protected AbstractFileDetector(File root, Consumer<File> allFileReadConsumer,Consumer<File> detectedFileConsumer){
+	protected AbstractFileDetector(List<File> root, Consumer<File> allFileReadConsumer,Consumer<File> detectedFileConsumer){
 		resultfiles = new ArrayList<>();
 		this.allFileReadConsumer = allFileReadConsumer;
 		   this.detectedFileConsumer = detectedFileConsumer;
@@ -26,8 +26,7 @@ public abstract class AbstractFileDetector implements Namable{
 
 	public List<File> detect() {
 	   resultfiles.clear();
-
-	   find(root);
+	   root.forEach(this::find);
 	   return resultfiles;
 	}
 
@@ -44,7 +43,6 @@ public abstract class AbstractFileDetector implements Namable{
 	    	recursion(file);
 	    }
 	}
-
 
 
 

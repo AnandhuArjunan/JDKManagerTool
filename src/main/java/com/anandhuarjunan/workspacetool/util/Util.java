@@ -1,5 +1,6 @@
-package com.anandhuarjunan.workspacetool;
+package com.anandhuarjunan.workspacetool.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -7,12 +8,19 @@ import java.util.Objects;
 
 import javax.persistence.Query;
 
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.anandhuarjunan.workspacetool.HibernateUtils;
+import com.anandhuarjunan.workspacetool.ResourcesLoader;
+import com.anandhuarjunan.workspacetool.persistance.models.Ides;
+import com.anandhuarjunan.workspacetool.persistance.models.JavaTypes;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
 
 import javafx.fxml.FXMLLoader;
@@ -42,6 +50,24 @@ public class Util {
 		 return result;
 	}
 
+	public static Ides fetchIde(String key) {
+		 SessionFactory session =  HibernateUtils.getSessionFactory();
+		 Session session2 = session.openSession();
+		 Ides ides =  session2.find(Ides.class, key);
+
+		 session2.close();
+		 return ides;
+	}
+
+	public static JavaTypes fetchJavaType(String key) {
+		 SessionFactory session =  HibernateUtils.getSessionFactory();
+		 Session session2 = session.openSession();
+		 JavaTypes javaType =  session2.find(JavaTypes.class, key);
+
+		 session2.close();
+		 return javaType;
+	}
+
 
 	public static boolean isDataPresent(Class value, Object idValue) {
 		 SessionFactory session =  HibernateUtils.getSessionFactory();
@@ -65,6 +91,17 @@ public class Util {
 		 session2.saveOrUpdate(kvStrSettings);
 		 tx.commit();
 		 session2.close();
+	}
+
+
+	public static String execToString(String command) throws Exception {
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    CommandLine commandline = CommandLine.parse(command);
+	    DefaultExecutor exec = new DefaultExecutor();
+	    PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+	    exec.setStreamHandler(streamHandler);
+	    exec.execute(commandline);
+	    return(outputStream.toString());
 	}
 
 	public static int hqlTruncate(String myTable){

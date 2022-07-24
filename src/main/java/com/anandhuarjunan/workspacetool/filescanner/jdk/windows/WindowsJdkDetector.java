@@ -1,6 +1,7 @@
 package com.anandhuarjunan.workspacetool.filescanner.jdk.windows;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -8,7 +9,7 @@ import com.anandhuarjunan.workspacetool.filescanner.AbstractFileDetector;
 
 public class WindowsJdkDetector extends AbstractFileDetector {
 
-	public WindowsJdkDetector(File root, Consumer<File> allFileReadConsumer, Consumer<File> detectedFileConsumer) {
+	public WindowsJdkDetector(List<File> root, Consumer<File> allFileReadConsumer, Consumer<File> detectedFileConsumer) {
 		super(root, allFileReadConsumer, detectedFileConsumer);
 	}
 

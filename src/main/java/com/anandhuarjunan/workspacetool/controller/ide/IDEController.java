@@ -62,7 +62,7 @@ public class IDEController implements Initializable,ReloadableController,NoDataC
 		    TypedQuery<WindowsIDE> allQuery = session2.createQuery(all);
 		    List<WindowsIDE> workspacesResult =  allQuery.getResultList();
 		    workspacesResult.forEach(w->{
-			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/ide/IdeBlock.fxml"));
+			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/common/CommonNameLocBlock.fxml"));
 				loader.setControllerFactory(c -> new IdeBlock(w));
 				try {
 					Parent root = loader.load();

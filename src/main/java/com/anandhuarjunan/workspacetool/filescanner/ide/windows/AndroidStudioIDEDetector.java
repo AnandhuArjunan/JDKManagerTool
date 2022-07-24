@@ -1,12 +1,13 @@
 package com.anandhuarjunan.workspacetool.filescanner.ide.windows;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
 public class AndroidStudioIDEDetector extends WindowsIDEsDetector  {
 
-	public AndroidStudioIDEDetector(File root, Consumer<File> allFileReadConsumer,
+	public AndroidStudioIDEDetector(List<File> root, Consumer<File> allFileReadConsumer,
 			Consumer<File> detectedFileConsumer) {
 		super(root, allFileReadConsumer, detectedFileConsumer);
 	}

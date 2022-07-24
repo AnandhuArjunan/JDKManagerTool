@@ -1,0 +1,6 @@
+@import '../common_name_loc_block.css';
+
+.content-pane{
+	-fx-background-color:-ideblock-gradient;
+}
+
