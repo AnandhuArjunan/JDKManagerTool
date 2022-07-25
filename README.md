@@ -2,6 +2,16 @@
 
 A tool to manage your Java Projects , Workspaces, IDEs , Java Environements.
 
+## Screenshots
+
+![Alt text](screenshots/home.PNG?raw=true "Main Page")
+
+![Alt text](screenshots/tools1.PNG?raw=true "Tools Page")
+
+![Alt text](screenshots/tools2.PNG?raw=true "Tools Page")
+
+![Alt text](screenshots/tools3.PNG?raw=true "Tools Page")
+
 ## Tech
 
 - Java 11
@@ -32,6 +42,18 @@ A tool to manage your Java Projects , Workspaces, IDEs , Java Environements.
 
 ## Deployment
 
-- gradlew run [Runs the App direcrly]
-- gradlew distZip [generates a distribution zip]
+Directly run with
+```sh
+gradlew run
+```
+Generate a binary zip 
+```sh 
+gradlew distZip 
+```
+
+## License
+
+Apache 2.0
+
+**Free Software, Hell Yeah!**
 
