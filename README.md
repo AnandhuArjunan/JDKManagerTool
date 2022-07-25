@@ -4,13 +4,14 @@ A tool to manage your Java Projects , Workspaces, IDEs , Java Environements.
 
 ## Screenshots
 
-![Alt text](screenshots/home.PNG?raw=true "Main Page")
+![Alt text](screenshots/1.png?raw=true "Main Page")
 
-![Alt text](screenshots/tools1.PNG?raw=true "Tools Page")
+![Alt text](screenshots/2.png?raw=true "Tools Page")
 
-![Alt text](screenshots/tools2.PNG?raw=true "Tools Page")
+![Alt text](screenshots/3.png?raw=true "Tools Page")
 
-![Alt text](screenshots/tools3.PNG?raw=true "Tools Page")
+![Alt text](screenshots/4.png?raw=true "Tools Page")
+
 
 ## Tech
 
