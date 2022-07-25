@@ -16,6 +16,7 @@ A tool to manage your Java Projects , Workspaces, IDEs , Java Environements.
 ## Tech
 
 - Java 11
+- OpenJFX 16 
 - Gradle 5.6
 - H2 Embedded Database 2.1.214
 - Hibernate ORM
