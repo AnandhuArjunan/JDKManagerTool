@@ -11,6 +11,10 @@ Note : Only Windows OS suppored.
 
 
 ### Tech
+
+It is a Non Modular Application. [Reason  : The Project uses JLink for creating Platform Specific Runtimes, and for a Modular Project, Jlink does not support loading of Automatic Modules,
+Since we had to use many non Modular Jars in this Project , it is required to convert them to Modular Jars .That is an additional Task. To avoid this I decided to make a Non Modular Project] 
+
 * Java14
 * OpenJFX 14
 * Gradle 6.5.1
