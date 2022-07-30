@@ -3,7 +3,11 @@
 
 ## WorkspaceManagerTool ## 
 
+Application that manages your Java Environments , Workspaces , IDEs ,SDKs .etc easily.
+No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
+
 Note : Only Windows OS suppored.
+
 
 
 ### Tech
@@ -17,6 +21,7 @@ Note : Only Windows OS suppored.
 * Apache Commons
 * Jaxb API
 * Hibernate 5.4.33 
+
 
 ### Dependencies for Building
 
