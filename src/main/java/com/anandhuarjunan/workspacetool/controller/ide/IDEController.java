@@ -18,9 +18,7 @@ import com.anandhuarjunan.workspacetool.HibernateUtils;
 import com.anandhuarjunan.workspacetool.ResourcesLoader;
 import com.anandhuarjunan.workspacetool.controller.NoDataController;
 import com.anandhuarjunan.workspacetool.controller.ReloadableController;
-import com.anandhuarjunan.workspacetool.controller.workspaces.WorkspaceBlock;
 import com.anandhuarjunan.workspacetool.persistance.models.WindowsIDE;
-import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
 
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.fxml.FXML;

@@ -1,16 +1,12 @@
 package com.anandhuarjunan.workspacetool.controller.ide;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.anandhuarjunan.workspacetool.controller.common.NormalNameLocBlockController;
 import com.anandhuarjunan.workspacetool.persistance.models.WindowsIDE;
-import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
 
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 
 public class IdeBlock extends NormalNameLocBlockController implements Initializable{
 

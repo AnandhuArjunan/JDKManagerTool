@@ -1,7 +1,6 @@
 package com.anandhuarjunan.workspacetool.controller.jdk;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.anandhuarjunan.workspacetool.controller.common.NormalNameLocBlockController;

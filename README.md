@@ -1,61 +1,38 @@
-# WorkspaceManagerTool
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/beryx-gist/badass-jlink-example-richtextfx/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/travis/beryx-gist/badass-jlink-example-richtextfx/master.svg?label=Build)](https://travis-ci.org/beryx-gist/badass-jlink-example-richtextfx)
 
-A tool to manage your Java Projects , Workspaces, IDEs , Java Environements.
+## Badass JLink Plugin Example: RichTextFX ##
 
-## Screenshots
+A small JavaFX application using [RichTextFX](https://github.com/FXMisc/RichTextFX) that shows how to use the [Badass JLink Plugin](https://github.com/beryx/badass-jlink-plugin).
+It creates a custom runtime image containing only the JDK and JavaFX modules required by the application.
+It also creates a platform-specific installer that associates files with the _my-java_ extension with this application.
 
-![Alt text](screenshots/1.png?raw=true "Main Page")
+Take a look at [build.gradle](https://github.com/beryx-gist/badass-jlink-example-richtextfx/blob/master/build.gradle) to see how to configure the plugin.
 
-![Alt text](screenshots/2.png?raw=true "Tools Page")
-
-![Alt text](screenshots/3.png?raw=true "Tools Page")
-
-![Alt text](screenshots/4.png?raw=true "Tools Page")
-
-
-## Tech
-
-- Java 11
-- OpenJFX 16 
-- Gradle 5.6
-- H2 Embedded Database 2.1.214
-- Hibernate ORM
-
-## Libs
-
-- MaterialFX [io.github.palexdev]
-- Apache Commons [commons-io , org.apache.commons]
-- Hibernate ORM [org.hibernate]
-- Javatuples [org.javatuples]
-
-
-## Features
-
-- IDE Management [Eclipse , Android Studio, STS]
-- JDK/JRE Management [All Java Versions]
-- WORKSPACE Management [Eclipse]
-
-## Planned Features
-
-- Add Support for Scanning other IDEs , Workspaces , Compilers
-- Set JAVA_HOME and Path
-- Theme Support
-
-
-## Deployment
-
-Directly run with
-```sh
-gradlew run
+### Usage
+**Running with gradle:**
 ```
-Generate a binary zip 
-```sh 
-gradlew distZip 
+./gradlew run
 ```
 
-## License
+A window containing Java source code with syntax highlighting should appear on the screen.
 
-Apache 2.0
 
-**Free Software, Hell Yeah!**
+**Creating and executing a custom runtime image:**
+```
+./gradlew jlink
+cd build/image/bin
+./java-keywords
+```
 
+A window containing Java source code with syntax highlighting should appear on the screen.
+
+
+**Creating platform-specific application installers:**
+```
+./gradlew jpackage
+```
+
+The platform-specific application installers will be available in the build/jpackage directory.
+The installers associate files with the extension `.my-java` with this application.

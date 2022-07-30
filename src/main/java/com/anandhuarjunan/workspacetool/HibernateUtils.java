@@ -17,6 +17,9 @@ import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
 import com.anandhuarjunan.workspacetool.persistance.models.WindowsIDE;
 import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 
 
 public class HibernateUtils {
@@ -33,7 +36,7 @@ public class HibernateUtils {
 				if (Objects.nonNull(dbHome)) {
 					jdbcUrl = "jdbc:h2:./" + dbHome + "/workspacedb";
 				} else {
-					jdbcUrl = "jdbc:h2:./../data/workspacedb";
+					jdbcUrl = "jdbc:h2:./app/workspacedb";
 				}
 
 				Properties settings = new Properties();

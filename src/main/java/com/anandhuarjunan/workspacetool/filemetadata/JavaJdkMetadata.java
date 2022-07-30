@@ -1,14 +1,9 @@
 package com.anandhuarjunan.workspacetool.filemetadata;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.ExecuteException;
 
 import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
 import com.anandhuarjunan.workspacetool.persistance.models.JavaTypes;

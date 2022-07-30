@@ -4,12 +4,9 @@ import java.io.IOException;
 
 import com.anandhuarjunan.workspacetool.util.Util;
 
-import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import javafx.scene.control.Control;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 
 public interface NoDataController {
 

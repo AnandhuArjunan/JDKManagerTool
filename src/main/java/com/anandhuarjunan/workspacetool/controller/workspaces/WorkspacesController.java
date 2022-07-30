@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,20 +18,15 @@ import com.anandhuarjunan.workspacetool.HibernateUtils;
 import com.anandhuarjunan.workspacetool.ResourcesLoader;
 import com.anandhuarjunan.workspacetool.controller.NoDataController;
 import com.anandhuarjunan.workspacetool.controller.ReloadableController;
-import com.anandhuarjunan.workspacetool.controller.common.NormalNameLocBlockController;
 import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
-import com.anandhuarjunan.workspacetool.util.Util;
 
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class WorkspacesController implements Initializable,ReloadableController,NoDataController {
 

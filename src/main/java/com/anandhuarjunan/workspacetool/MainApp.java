@@ -1,8 +1,5 @@
 package com.anandhuarjunan.workspacetool;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.anandhuarjunan.workspacetool.controller.MainController;
 
 import javafx.application.Application;
@@ -30,8 +27,6 @@ public class MainApp extends Application {
 		stage.setOnHidden(mainController::shutDown);
 		stage.setTitle("Workspace Manager");
 		stage.show();
-
-
 
     }
 

@@ -1,60 +1,37 @@
 package com.anandhuarjunan.workspacetool.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
-import com.anandhuarjunan.binarytext.ExtractPrintableText;
-import com.anandhuarjunan.workspacetool.HibernateUtils;
-import com.anandhuarjunan.workspacetool.ResourcesLoader;
-import com.anandhuarjunan.workspacetool.MainApp;
 import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.constants.ReloadableViews;
 import com.anandhuarjunan.workspacetool.controller.choosedir.ChooseDirectoryController;
-import com.anandhuarjunan.workspacetool.filescanner.EclipseWorkspaceDetector;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
-import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
 import com.anandhuarjunan.workspacetool.util.Util;
 
-import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.scene.control.ToggleGroup;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.font.MFXFontIcon;
 import io.github.palexdev.materialfx.utils.ScrollUtils;
 import io.github.palexdev.materialfx.utils.ToggleButtonsUtil;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.print.Collation;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import io.github.palexdev.materialfx.utils.others.loader.MFXLoader;
-import io.github.palexdev.materialfx.utils.others.loader.MFXLoaderBean;
-import static com.anandhuarjunan.workspacetool.ResourcesLoader.loadURL;
 
 public class MainController implements Initializable {
 
@@ -123,12 +100,20 @@ public class MainController implements Initializable {
 		});
 
 		ScrollUtils.addSmoothScrolling(scrollPane);
-		initializeLoader();
+		try {
+			initializeLoader();
+		} catch (IOException e) {
+
+			Alert a = new Alert(AlertType.NONE);
+			a.setTitle("dd");
+			a.setContentText(e.getMessage());
+			a.show();
+		}
 
 
 	}
 
-	private void initializeLoader() {
+	private void initializeLoader() throws IOException {
 		ToggleButton chooseDir = createToggle("mfx-search", "Choose Root Directory");
 		ToggleButton workspace = createToggle("mfx-circle-dot", "Workspaces");
 
@@ -141,16 +126,16 @@ public class MainController implements Initializable {
 		navBar.getChildren().add(ide);
 		navBar.getChildren().add(jdk);
 
-		try {
+
 			 ChooseDirectoryController chooseDirectoryController = new ChooseDirectoryController();
 			 choose = Util.loadFxml("fxml/ChooseDirectory.fxml",chooseDirectoryController);
-			 ideNodeLoader = Util.loadFxmlLoader("fxml/idemanager.fxml");
+			ideNodeLoader = Util.loadFxmlLoader("fxml/idemanager.fxml");
 			 jdkNodeLoader = Util.loadFxmlLoader("fxml/jdkmanager.fxml");
 			 workNodeLoader = Util.loadFxmlLoader("fxml/workspacemanager.fxml");
 
 			ideNode =  ideNodeLoader.load();
 			jdkNode = jdkNodeLoader.load();
-			workNode = workNodeLoader.load();
+		workNode = workNodeLoader.load();
 			contentPane.getChildren().add(choose);
 			contentPane.getChildren().add(ideNode);
 			contentPane.getChildren().add(jdkNode);
@@ -160,9 +145,7 @@ public class MainController implements Initializable {
 			chooseDirectoryController.addDependencyController(ReloadableViews.JDK, jdkNodeLoader.getController());
 			chooseDirectoryController.addDependencyController(ReloadableViews.WORKSPACE, workNodeLoader.getController());
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 
 
 
