@@ -35,11 +35,11 @@ Note : Only Windows OS suppored.
 ### Use
 **Run Directly [No need of Wix Toolset to be installed]:**
 ```
-./gradlew run
+gradlew run
 ```
 **Creating platform-specific application installers: [Creates Windows Executable and Installers]**
 ```
-./gradlew jpackage
+gradlew jpackage
 ```
 
 ## Development
