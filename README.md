@@ -3,7 +3,7 @@
 
 ## WorkspaceManagerTool ## 
 
-Application that manages your Java Environments , Workspaces , IDEs ,SDKs .etc easily.
+A Tool that manages your Java Environments , Workspaces , IDEs ,SDKs .etc easily.
 No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
 
 Note : Only Windows OS suppored.
