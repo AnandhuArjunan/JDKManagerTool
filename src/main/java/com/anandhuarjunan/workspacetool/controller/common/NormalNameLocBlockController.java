@@ -40,6 +40,10 @@ public class NormalNameLocBlockController implements Initializable {
     @FXML
     private BorderPane mainPane;
 
+
+    @FXML
+    protected VBox buttonGroup;
+
     private String strname;
     private String flocation;
     private  Blob imgIcon;

@@ -1,0 +1,124 @@
+@import '../fonts/Fonts.css';
+@import 'Colours.css';
+
+
+*{
+	-header-gradient :linear-gradient(to right bottom,  #7e7e7e, #868788, #8e9093, #97999d, #9fa3a8, #a8acb2, #b0b5bd, #b9bfc8);
+	-javaBlock-gradient:  linear-gradient(to right bottom, #5c0052, #7e1156, #9c2858, #b84159, #cf5c5b, #e3785d, #f39662, #ffb56b);
+	-javacBlock-gradient: linear-gradient(to right bottom,#01525c, #006b71, #00847f, #009e86, #00b785, #00d07b, #36e86b, #7dff51);
+	-vendorBlock-gradient: linear-gradient(to right bottom,#3a83c5, #0096d5, #00aae0, #00bde5, #00cfe4, #00e0dd, #00f0d1, #56ffc3);
+	-toggleButton-gradient: linear-gradient(to right bottom,#3a83c5, #0096d5, #00aae0, #00bde5, #00cfe4, #00e0dd, #00f0d1, #56ffc3);
+	-installedjdkblock-gradient: linear-gradient(to right bottom,#9a9a9a, #a3a4a8, #adadb6, #b6b7c4, #c0c1d3, #cacbe1, #d3d5f0, #dddfff);
+	-selectedjavahome-gradient: linear-gradient(to right bottom,#319a6a, #3ba871, #46b678, #51c57e, #5dd384, #6ae28a, #78f08f, #86ff94);
+
+
+}
+
+.rootPane{
+
+}
+.mediamLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+}
+
+.rootPane .javahomedetails{
+	-fx-background-radius: 10;
+	-fx-background-color:-header-gradient;
+}
+
+.rootPane .javahomedetails .toggleButtons{
+-fx-background-radius: 10;
+	-fx-background-color:-header-gradient;
+}
+
+
+
+.rootPane .javahomedetails .toggleButtons:selected,.toggleButtons:focused,.toggleButtons:selected:focused{
+	-fx-background-radius: 10;
+	-fx-background-color:-toggleButton-gradient;
+}
+
+
+.rootPane .bigLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: black;
+}
+
+.rootPane .mediamLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+}
+
+.rootPane .currentJavaHome{
+
+
+}
+
+.rootPane .currentJavaHome .javaHomeContainer{
+	-fx-background-radius: 10;
+	-fx-background-color:-javaBlock-gradient;
+}
+
+.rootPane .currentJavaHome .javaHomeContainer .bigLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: white;
+}
+
+.rootPane .currentJavaHome .javacHomeContainer {
+	-fx-background-radius: 10;
+	-fx-background-color:-javacBlock-gradient;
+}
+
+.rootPane .currentJavaHome .javacHomeContainer .bigLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: white;
+}
+
+.rootPane .currentJavaHome .vendorContainer {
+	-fx-background-radius: 10;
+	-fx-background-color:-vendorBlock-gradient;
+}
+
+.installedSingleBlock{
+    -fx-background-color:-installedjdkblock-gradient;
+	-fx-background-radius: 20;
+	-fx-border-radius: 10;
+}
+
+.installedSingleBlock .name{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: black;
+}
+
+.installedSingleBlock .location{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: grey;
+}
+
+.installedSingleBlock .vendor{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: grey;
+}
+
+.installedSingleBlock .buttons{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: black;
+	    -fx-background-color:-toggleButton-gradient;
+
+}
+
+.installedSingleBlock .statusView{
+	-fx-background-color:-selectedjavahome-gradient;
+-fx-background-radius: 10;
+}
+

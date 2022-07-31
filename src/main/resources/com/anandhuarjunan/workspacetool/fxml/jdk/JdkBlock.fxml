@@ -1,25 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXProgressBar?>
+<?import io.github.palexdev.materialfx.font.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="500.0" styleClass="contentPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.jdk.JdkBlock">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="600.0" styleClass="installedSingleBlock" stylesheets="@../../style/jdkmanager.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.jdk.JdkBlock">
    <center>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" styleClass="workspace_name" text="name" wrapText="true" VBox.vgrow="ALWAYS" />
-            <Label fx:id="wlocation" alignment="CENTER" contentDisplay="CENTER" styleClass="workspace_location" text="Label" wrapText="true" VBox.vgrow="ALWAYS" />
+            <ImageView fx:id="icon" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../images/icons/java-icon.png" />
+               </image>
+            </ImageView>
+            <VBox fx:id="box" spacing="5.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" styleClass="name" text="name" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Separator prefWidth="200.0" />
+                  <Label fx:id="vendor" styleClass="vendor" text="vendor" wrapText="true" />
+                  <Label fx:id="wlocation" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="location" text="location" wrapText="true" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox fx:id="buttonGroup" alignment="CENTER" spacing="10.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <MFXButton fx:id="setdefault" minWidth="100.0" prefWidth="100.0" styleClass="buttons" text="Set Default" VBox.vgrow="ALWAYS">
+                     <graphic>
+                        <MFXFontIcon description="mfx-variant9-mark" />
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="locateInExplorer" minWidth="120.0" prefWidth="120.0" styleClass="buttons" text="Locate in Explorer" VBox.vgrow="ALWAYS">
+                     <graphic>
+                        <MFXFontIcon description="mfx-google-script" />
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="delete" minWidth="80.0" prefWidth="80.0" styleClass="buttons" text="Delete" VBox.vgrow="ALWAYS">
+                     <graphic>
+                        <MFXFontIcon description="mfx-delete" size="12.0" />
+                     </graphic>
+                  </MFXButton>
+               </children>
+            </VBox>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
+      </HBox>
    </center>
-   <stylesheets>
-      <URL value="@../../style/styles.css" />
-      <URL value="@../../style/worskpaces.css" />
-   </stylesheets>
+   <top>
+      <HBox fx:id="currentJavaHomeFlag" alignment="CENTER_LEFT" spacing="5.0" styleClass="statusView" BorderPane.alignment="CENTER">
+         <children>
+            <MFXFontIcon fx:id="tickMark" description="mfx-variant9-mark" size="15.0" />
+            <Label fx:id="currentStatus" styleClass="mediamLabel" text="Current Java Home" />
+            <MFXProgressBar fx:id="progressBar" prefWidth="400.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="2.0" left="10.0" top="2.0" />
+         </padding>
+      </HBox>
+   </top>
 </BorderPane>

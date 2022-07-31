@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.Executor;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -100,6 +101,15 @@ public class Util {
 	    PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 	    exec.setStreamHandler(streamHandler);
 	    exec.execute(commandline);
+	    return(outputStream.toString());
+	}
+
+	public static String execToString(String command,Executor executor) throws Exception {
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    CommandLine commandline = CommandLine.parse(command);
+	    PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+	    executor.setStreamHandler(streamHandler);
+	    executor.execute(commandline);
 	    return(outputStream.toString());
 	}
 

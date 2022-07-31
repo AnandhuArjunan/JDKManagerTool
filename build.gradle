@@ -4,8 +4,10 @@ plugins {
 }
 
 dependencies {
-    implementation 'org.fxmisc.richtext:richtextfx:0.10.5'
     implementation files('libs/ExtractPrintableTextLib.jar')
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+
     implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.33.Final'
     implementation group: 'javax.xml.bind', name: 'jaxb-api'
@@ -14,6 +16,7 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
     implementation 'org.javatuples:javatuples:1.2'
     implementation group: 'org.apache.commons', name: 'commons-exec', version: '1.3'
+
 }
 
 repositories {
@@ -52,12 +55,17 @@ runtime {
     }
 }
 run {
-         jvmArgs("-Dh2.system.home=data")
+         jvmArgs("-Dh2.system.home=data","-DRun")
 }
 tasks.jpackageImage.doLast {
 
      copy {
             from "${rootProject.projectDir}/data"
+            into "build/jpackage/$project.name/app"
+        }
+
+    copy {
+            from "${rootProject.projectDir}/native"
             into "build/jpackage/$project.name/app"
         }
 }

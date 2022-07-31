@@ -29,7 +29,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </HBox.margin>
             </VBox>
-            <VBox alignment="CENTER" spacing="5.0">
+            <VBox fx:id="buttonGroup" alignment="CENTER" spacing="5.0">
                <children>
                   <MFXFontIcon fx:id="openInExp" description="mfx-google-script" size="20.0" />
                </children>
