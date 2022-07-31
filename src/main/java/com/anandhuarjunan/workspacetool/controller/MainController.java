@@ -3,11 +3,16 @@ package com.anandhuarjunan.workspacetool.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.anandhuarjunan.workspacetool.UIResources;
 import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.constants.ReloadableViews;
 import com.anandhuarjunan.workspacetool.controller.choosedir.ChooseDirectoryController;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
+import com.anandhuarjunan.workspacetool.util.Action;
+import com.anandhuarjunan.workspacetool.util.AnimationUtils;
 import com.anandhuarjunan.workspacetool.util.Util;
 
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
@@ -24,9 +29,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -62,6 +69,21 @@ public class MainController implements Initializable {
 
 	private Stage stage;
 
+    @FXML
+    private Label username;
+
+    @FXML
+    private HBox statusBar;
+
+    @FXML
+    private MFXFontIcon statusIcon;
+
+    @FXML
+    private Label statusText;
+
+    @FXML
+    private BorderPane root;
+
 	private Parent choose = null;
 	private FXMLLoader ideNodeLoader = null;
 	private FXMLLoader jdkNodeLoader = null;
@@ -70,16 +92,18 @@ public class MainController implements Initializable {
 	private Parent ideNode = null;
 	private Parent jdkNode = null;
 	private Parent workNode = null;
-
+	private StatusManager statusManager = null;
 	public MainController(Stage stage) {
 		this.stage = stage;
 		this.toggleGroup = new ToggleGroup();
 		ToggleButtonsUtil.addAlwaysOneSelectedSupport(toggleGroup);
-
+		statusManager=new StatusManager();
+		UIResources.getInstance().setStatusManager(statusManager);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		statusManager.hide();
 		close.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> Platform.exit());
 		maximize.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 
@@ -98,6 +122,8 @@ public class MainController implements Initializable {
 			stage.setX(event.getScreenX() + xOffset);
 			stage.setY(event.getScreenY() + yOffset);
 		});
+
+		username.setText(System.getProperty("user.name"));
 
 		ScrollUtils.addSmoothScrolling(scrollPane);
 		try {
@@ -121,10 +147,11 @@ public class MainController implements Initializable {
 		ToggleButton jdk = createToggle("mfx-circle-dot", "JDK Manager");
 
 		navBar.getChildren().add(chooseDir);
+		navBar.getChildren().add(jdk);
 		navBar.getChildren().add(workspace);
 
 		navBar.getChildren().add(ide);
-		navBar.getChildren().add(jdk);
+
 
 
 			 ChooseDirectoryController chooseDirectoryController = new ChooseDirectoryController();
@@ -135,7 +162,7 @@ public class MainController implements Initializable {
 
 			ideNode =  ideNodeLoader.load();
 			jdkNode = jdkNodeLoader.load();
-		workNode = workNodeLoader.load();
+			workNode = workNodeLoader.load();
 			contentPane.getChildren().add(choose);
 			contentPane.getChildren().add(ideNode);
 			contentPane.getChildren().add(jdkNode);
@@ -206,6 +233,57 @@ public class MainController implements Initializable {
 	public void shutDown(WindowEvent ev) {
 		Platform.exit();
 
+	}
+
+	public class StatusManager{
+		public StatusManager setError(String errorMessage) {
+			Platform.runLater(()->{
+				statusBar.setStyle("-fx-background-color: -errorSuccess-gradient");
+				statusText.setText(errorMessage);
+				statusIcon.setDescription("mfx-x-circle");
+			});
+
+			return this;
+		}
+
+
+		public StatusManager setSuccess(String successMessage) {
+			Platform.runLater(()->{
+				statusBar.setStyle("-fx-background-color: -statusSuccess-gradient");
+				statusText.setText(successMessage);
+				statusIcon.setDescription("mfx-check-circle");
+
+			});
+
+			return this;
+		}
+
+		public synchronized void show() {
+
+			Action hideAction = ()->root.setBottom(statusBar);
+			AnimationUtils.addAnimating(hideAction, AnimationUtils.fadeInAnimationSupplier(statusBar));
+
+			Timer timer = new Timer();
+			TimerTask task = new TimerTask()
+			{
+			        public void run()
+			        {
+			        	Platform.runLater(()->{
+			    			AnimationUtils.addAnimating(hideAction, AnimationUtils.fadeOutAnimationSupplier(statusBar));
+			    			root.setBottom(null);
+			        	});
+
+			        }
+
+			};
+			timer.schedule(task,10000l);
+		}
+
+		public synchronized void hide() {
+			Platform.runLater(()->{
+				root.setBottom(null);
+			});
+		}
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -21,35 +22,43 @@ import com.anandhuarjunan.workspacetool.ResourcesLoader;
 import com.anandhuarjunan.workspacetool.controller.NoDataController;
 import com.anandhuarjunan.workspacetool.controller.ReloadableController;
 import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
+import com.anandhuarjunan.workspacetool.util.Action;
+import com.anandhuarjunan.workspacetool.util.AnimationUtils;
 import com.anandhuarjunan.workspacetool.util.JavaEnvUtils;
+import com.anandhuarjunan.workspacetool.util.Util;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXContextMenuItem;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.utils.ToggleButtonsUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
-public class JdkController implements Initializable,ReloadableController,NoDataController {
+public class JdkController implements Initializable {
 
 	private final ToggleGroup toggleGroup;
 
 	 @FXML
-	    private MFXScrollPane contentPane;
+	 protected MFXScrollPane contentPane;
 
 	    @FXML
 	    private ToggleButton download;
 
-	    @FXML
-	    private FlowPane ides;
 
 	    @FXML
 	    private ToggleButton installedJdk;
+
 
 	    @FXML
 	    protected Label javaVersion;
@@ -58,7 +67,7 @@ public class JdkController implements Initializable,ReloadableController,NoDataC
 	    protected Label javacVersion;
 
 	    @FXML
-	    private BorderPane mainPane;
+	    protected BorderPane mainPane;
 
 	    @FXML
 	    private ToggleButton settings;
@@ -66,28 +75,55 @@ public class JdkController implements Initializable,ReloadableController,NoDataC
 	    @FXML
 	    protected Label vendor;
 
+	    @FXML
+	    private ComboBox<String> categoryDropDown;
+
+
+	    @FXML
+	    private MFXButton clearSearchBtn;
+
+	    @FXML
+	    private TextField searchBox;
+
+	    @FXML
+	    private MFXButton searchBtn;
+
+
+	    private Parent installedJdkNode = null;
+	    private Parent downloadAndInstallView = null;
+
+
 		protected ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+		protected InstalledJdkController installedJdkController = null;
+		protected DownloadAndInstallJdkController downloadAndInstallJdkController = null;
+
 
 	   public JdkController() {
 		   this.toggleGroup = new ToggleGroup();
 		   ToggleButtonsUtil.addAlwaysOneSelectedSupport(toggleGroup);
+		   installedJdkController = new InstalledJdkController(this);
+		   downloadAndInstallJdkController = new DownloadAndInstallJdkController(this);
+
 	   }
 
 
-	@Override
-	public void reload() {
-		loadJdk();
 
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		setControls();
 
-		loadJdk();
 		try {
+			initateViews();
+			setInstalledJdkView();
+			setControlsAndEvents();
+			fillSearchCategories();
 			setJavaHomeDetails();
+			clearSearchBtn.setOnAction(ev->onSearchAction());
+			searchBtn.setOnAction(ev->onSearchAction());
+			onSearchClearAction();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,12 +133,62 @@ public class JdkController implements Initializable,ReloadableController,NoDataC
 
 	}
 
-	private void setControls() {
+	private void onSearchClearAction() {
+			installedJdkController.ides.getChildren().clear();
+			installedJdkController.ides.getChildren().addAll(installedJdkController.allLocalJdkList);
+
+	}
+
+	private void onSearchAction() {
+			onSearchClearAction();
+			if(!StringUtils.isEmpty(searchBox.getText())) {
+				installedJdkController.filterJdks(searchBox.getText(),categoryDropDown.getSelectionModel().getSelectedItem());
+			}
+	}
+
+
+
+
+	private void fillSearchCategories() {
+		categoryDropDown.getItems().addAll("Version","Vendor");
+		categoryDropDown.getSelectionModel().selectFirst();
+
+	}
+
+
+
+
+	private void initateViews() throws IOException {
+		installedJdkNode = Util.loadFxml("fxml/jdk/InstalledJdk.fxml",installedJdkController);
+		downloadAndInstallView = Util.loadFxml("fxml/jdk/DownloadAndInstallJdk.fxml",downloadAndInstallJdkController);
+
+	}
+
+
+	private void setInstalledJdkView() {
+		installedJdk.setSelected(true);
+		contentPane.setContent(installedJdkNode);
+	}
+
+
+
+
+	private void setControlsAndEvents() {
 		download.setToggleGroup(toggleGroup);
 		settings.setToggleGroup(toggleGroup);
 		installedJdk.setToggleGroup(toggleGroup);
+		installedJdk.setOnAction(ev->setInstalledJdkView());
+		download.setOnAction(ev->setDownloadAndInstallView());
 
 	}
+
+
+	private void setDownloadAndInstallView() {
+		contentPane.setContent(downloadAndInstallView);
+
+	}
+
+
 
 
 	protected void setJavaHomeDetails() throws Exception {
@@ -117,33 +203,7 @@ public class JdkController implements Initializable,ReloadableController,NoDataC
 
 	}
 
-	public void loadJdk() {
-		ides.getChildren().clear();
-		SessionFactory session =  HibernateUtils.getSessionFactory();
-		 Session session2 = session.openSession();
-		 CriteriaBuilder cb = session2.getCriteriaBuilder();
-		    CriteriaQuery<JavaEnv> cq = cb.createQuery(JavaEnv.class);
-		    Root<JavaEnv> rootEntry = cq.from(JavaEnv.class);
-		    CriteriaQuery<JavaEnv> all = cq.select(rootEntry);
 
-		    TypedQuery<JavaEnv> allQuery = session2.createQuery(all);
-		    List<JavaEnv> workspacesResult =  allQuery.getResultList();
-		    workspacesResult.forEach(w->{
-			  FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/jdk/JdkBlock.fxml"));
-				loader.setControllerFactory(c -> new JdkBlock(w,this));
-				try {
-					Parent root = loader.load();
-					ides.getChildren().add(root);
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		  });
-
-		 addNoDataController(ides, mainPane,contentPane);
-		 session2.close();
-
-	}
 
 
 }

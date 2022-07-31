@@ -1,5 +1,11 @@
-
+@import 'Colours.css';
 @import '../fonts/Fonts.css';
+
+*{
+	-statusSuccess-gradient: linear-gradient(to right bottom,#319a6a, #3ba871, #46b678, #51c57e, #5dd384, #6ae28a, #78f08f, #86ff94);
+-errorSuccess-gradient: linear-gradient(to right bottom, #ee6363, #ed5957, #eb4f4b, #e8443f, #e63832, #e22b25, #de1c15, #da0000);
+}
+
 .rootPane {
 	-fx-background-color: white;
 	-fx-background-radius: 10;
@@ -42,7 +48,7 @@
 
 
 .rootPane .sidebar {
-	-fx-background-color: #7a0ed9;
+	-fx-background-color:-primary-gradient;
 	-fx-background-insets: -1 -5 -1 -1;
 	-fx-background-radius: 0 20 20 0;
 }
@@ -112,11 +118,21 @@
 
 }
 
-
-
 .notfound_label {
 	-fx-font-family: 'Visby Round CF Bold';
 	-fx-font-size: 25;
 	-fx-text-fill: black;
 }
+
+.rootPane .statusBar{
+   	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+	-fx-background-radius: 15;
+}
+
+
+
+
+
 

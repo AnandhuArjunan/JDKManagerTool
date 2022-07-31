@@ -22,25 +22,38 @@
 <?import io.github.palexdev.materialfx.font.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.MainController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" stylesheets="@../style/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.MainController">
    <left>
-      <VBox styleClass="sidebar" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" styleClass="sidebar" BorderPane.alignment="CENTER">
          <children>
-            <Label styleClass="header" text="Workspace">
-               <graphic>
-                  <MFXFontIcon description="mfx-logo" size="52.0" />
-               </graphic>
-            </Label>
-            <Label styleClass="menu-label" text="Components">
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Untitled-1.png" />
+               </image>
+            </ImageView>
+            <Label styleClass="header" text="SDKManager" />
+            <HBox alignment="CENTER" spacing="10.0">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
-            </Label>
+               <children>
+                  <MFXFontIcon description="mfx-user" size="15.0" />
+                  <Label fx:id="username" styleClass="menu-label" text="User" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Separator>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Separator>
             <MFXScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
                <content>
                   <VBox fx:id="navBar" spacing="5.0" styleClass="navbar" />
@@ -54,7 +67,7 @@
             <Insets />
          </BorderPane.margin>
          <padding>
-            <Insets left="20.0" right="20.0" top="60.0" />
+            <Insets left="30.0" right="30.0" top="60.0" />
          </padding>
       </VBox>
    </left>
@@ -79,4 +92,15 @@
          </children>
       </VBox>
    </center>
+   <bottom>
+      <HBox fx:id="statusBar" alignment="CENTER" spacing="10.0" styleClass="statusBar" BorderPane.alignment="CENTER">
+         <children>
+            <MFXFontIcon fx:id="statusIcon" description="mfx-circle" size="20.0" />
+            <Label fx:id="statusText" text="Label" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
 </BorderPane>

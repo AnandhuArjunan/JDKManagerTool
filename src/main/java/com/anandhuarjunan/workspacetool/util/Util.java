@@ -143,15 +143,12 @@ public class Util {
 
 	}
 
-	public static Parent loadFxml(String resource,Object controller) {
+	public static Parent loadFxml(String resource,Object controller) throws IOException {
 		 FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL(resource));
 			loader.setControllerFactory(c -> controller);
-			try {
+
 				return loader.load();
-			}
-			catch(Exception e) {
-				return null;
-			}
+
 	}
 
 }

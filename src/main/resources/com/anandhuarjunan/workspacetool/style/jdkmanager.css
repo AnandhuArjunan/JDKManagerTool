@@ -34,6 +34,29 @@
 }
 
 
+.rootPane .javahomedetails .searchBox{
+-fx-background-radius: 10;
+	-fx-background-color:-header-gradient;
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+}
+
+.rootPane .javahomedetails .categoryDropdown{
+-fx-background-radius: 10;
+	-fx-background-color:-header-gradient;
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+}
+
+.rootPane .javahomedetails .button{
+	-fx-background-radius: 10;
+	-fx-background-color:-toggleButton-gradient;
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: black;
+}
 
 .rootPane .javahomedetails .toggleButtons:selected,.toggleButtons:focused,.toggleButtons:selected:focused{
 	-fx-background-radius: 10;

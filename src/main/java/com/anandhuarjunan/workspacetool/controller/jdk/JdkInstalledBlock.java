@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import org.apache.commons.lang3.StringUtils;
 
 import com.anandhuarjunan.workspacetool.AppException;
+import com.anandhuarjunan.workspacetool.UIResources;
 import com.anandhuarjunan.workspacetool.constants.CommonEnvHomes;
 import com.anandhuarjunan.workspacetool.controller.ReloadableController;
 import com.anandhuarjunan.workspacetool.controller.choosedir.ChooseDirectoryController.SyncDirectory;
@@ -33,7 +34,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class JdkBlock implements Initializable{
+public class JdkInstalledBlock implements Initializable{
 
     @FXML
     private VBox box;
@@ -72,6 +73,9 @@ public class JdkBlock implements Initializable{
     private Label wlocation;
 	private JavaEnv javaEnv = null;
 
+	private boolean isDefault = false;
+
+
 	@FXML
 	private HBox currentJavaHomeFlag;
 
@@ -79,7 +83,7 @@ public class JdkBlock implements Initializable{
 
 	private  JdkController jdkController = null;
 
-	public JdkBlock(JavaEnv javaEnv, JdkController jdkController) {
+	public JdkInstalledBlock(JavaEnv javaEnv, JdkController jdkController) {
 		this.javaEnv  = javaEnv;
 		this.statusBarHandler = new StatusBarHandler();
 		this.jdkController = jdkController;
@@ -112,14 +116,15 @@ public class JdkBlock implements Initializable{
 				});
 				setJavaHome();
 				Platform.runLater(()->{
-					jdkController.reload();
+					jdkController.installedJdkController.reload();
 					jdkController.javacVersion.setText(javaEnv.getVersion());
 					jdkController.javaVersion.setText(javaEnv.getVersion());
 					jdkController.vendor.setText(javaEnv.getCompany());
-
+					UIResources.getInstance().getStatusManager().setError("Done ! Re open your Command Prompt to affect the Environment Change!").show();
 				});
 			} catch (IOException | InterruptedException | AppException e) {
-
+			    Thread.currentThread().interrupt();
+				UIResources.getInstance().getStatusManager().setError("Something Went Wrong!").show();
 			}
 		};
 		jdkController.executorService.execute(bgThread);
@@ -137,8 +142,10 @@ public class JdkBlock implements Initializable{
 				javaPathFromEnv.trim().equalsIgnoreCase(javaEnv.getJavaHome().trim())) {
 			setdefault.setDisable(true);
 			statusBarHandler.setDefaultHomeBlock();
+			setDefault(true);
 		}else {
 			setdefault.setDisable(false);
+			setDefault(false);
 		}
 	}
 	private void setJavaHome() throws IOException, InterruptedException, AppException {
@@ -147,6 +154,20 @@ public class JdkBlock implements Initializable{
 			throw new AppException();
 		}
 	}
+
+
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+
+
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
+
 
 	class StatusBarHandler{
 

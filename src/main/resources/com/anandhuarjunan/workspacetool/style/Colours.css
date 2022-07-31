@@ -1,19 +1,8 @@
 
 * {
-	-mfx-blue: #2196f3;
-	-mfx-charcoal: #445055;
-	-mfx-green: #4caf50;
-	-mfx-onyx: #353935;
-	-mfx-orange: #ff9800;
-	-mfx-purple: #7a0ed9;
-	-mfx-red: #EF6E6B;
-	-mfx-yellow: #FFEA00;
 
 
-	-mfx-text-he: rgba(0, 0, 0, 0.87); /* High Emphasis */
-	-mfx-text-me: rgba(0, 0, 0, 0.60); /* Medium Emphasis*/
-	-mfx-text-disabled: rgba(0, 0, 0, 0.38); /* Disabled */
-
+	-primary-gradient:linear-gradient(to right bottom,#d2d2d2, #ced0d1, #cacecf, #c6ccce, #c1cbcc, #bdc9cb, #b9c7c9, #b5c5c8);
 
 	-block-gradient: linear-gradient(to right bottom,#d1ccd2,#d6c1e8,#efd9f4);
 
