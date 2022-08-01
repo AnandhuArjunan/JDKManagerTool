@@ -17,6 +17,7 @@ Since we had to use many non Modular Jars in this Project , it is required to co
 
 * Java14
 * OpenJFX 14
+* AfterburnerFX - MVP Frameword and Dependency Injection
 * Gradle 6.5.1
 * Badass Runtime Plugin - For Creating Platform Specific Executable/Installer
 * H2 Embedded Database 2.1.14
