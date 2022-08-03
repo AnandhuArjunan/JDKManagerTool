@@ -27,6 +27,9 @@ Since we had to use many non Modular Jars in this Project , it is required to co
 * Jaxb API
 * Hibernate 5.4.33 
 
+### Use
+**Release Binaries[Installer and Portable Versions] are uploaded.**
+
 
 ### Dependencies for Building
 
@@ -36,8 +39,7 @@ Since we had to use many non Modular Jars in this Project , it is required to co
 * Gradle 6.5.1
 
 
-
-### Use
+### Build Commands
 **Run Directly [No need of Wix Toolset to be installed]:**
 ```
 gradlew run
