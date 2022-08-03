@@ -1,0 +1,67 @@
+@import '../../fonts/Fonts.css';
+@import '../../style/Colours.css';
+@import '../../style/jdkmanager.css';
+
+
+.jdkheader{
+	-fx-background-color:transparent;
+}
+ .jdkheader .searchBox{
+-fx-background-radius: 10;
+	-fx-background-color:-header-gradient;
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+}
+
+ .jdkheader .categoryDropdown{
+-fx-background-radius: 10;
+	-fx-background-color:-header-gradient;
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: black;
+}
+
+ .jdkheader .button{
+	-fx-background-radius: 10;
+	-fx-background-color:-vendorBlock-gradient;
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: black;
+}
+
+.jdkheader .currentJavaHome{
+		-fx-background-color:transparent;
+}
+
+ .jdkheader .currentJavaHome .javaHomeContainer{
+	-fx-background-radius: 10;
+	-fx-background-color:-javaBlock-gradient;
+}
+
+.jdkheader  .currentJavaHome .javaHomeContainer .bigLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: white;
+}
+
+ .jdkheader .currentJavaHome .javacHomeContainer {
+	-fx-background-radius: 10;
+	-fx-background-color:-javacBlock-gradient;
+}
+
+ .jdkheader .currentJavaHome .javacHomeContainer .bigLabel{
+	-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: white;
+}
+
+.jdkheader .currentJavaHome .vendorContainer {
+	-fx-background-radius: 10;
+	-fx-background-color:-vendorBlock-gradient;
+}
+
+
+.jdkheader .searchBlock{
+	-fx-background-color:transparent;
+}

@@ -1,6 +1,8 @@
 package com.anandhuarjunan.workspacetool.util;
 
 import javafx.scene.Node;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 
 public class JFXUtils {
@@ -25,6 +27,12 @@ public class JFXUtils {
 
 		public static void enableNodes(Node ...nodes) {
 			disableNodes(false, nodes);
+		}
+
+		public static void addtoToggleGroup(ToggleGroup toggleGroup,ToggleButton ...toggleButtons) {
+			for(ToggleButton toggleButton : toggleButtons) {
+				toggleButton.setToggleGroup(toggleGroup);
+			}
 		}
 
 

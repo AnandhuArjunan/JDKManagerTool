@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.FlowPane?>
+
+
+<FlowPane fx:id="ides" alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefWrapLength="1000.0" vgap="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.views.jdk.DownloadAndInstallJdkPresenter" />

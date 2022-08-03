@@ -6,7 +6,7 @@
 -errorSuccess-gradient: linear-gradient(to right bottom, #ee6363, #ed5957, #eb4f4b, #e8443f, #e63832, #e22b25, #de1c15, #da0000);
 }
 
-.rootPane {
+.mainAppPane {
 	-fx-background-color: white;
 	-fx-background-radius: 10;
 	-fx-border-color: #ebebeb;
@@ -15,55 +15,55 @@
 /**************************************************
  * Window Header
 **************************************************/
-.rootPane .close-icon {
+.mainAppPane .close-icon {
 	-mfx-color: #EF6E6B;
 	-fx-opacity: 0.5;
 }
 
-.rootPane .close-icon:hover {
+.mainAppPane .close-icon:hover {
 	-fx-opacity: 1.0;
 }
 
-.rootPane .minimize-icon {
+.mainAppPane .minimize-icon {
 	-mfx-color: #ffbf37;
 	-fx-opacity: 0.5;
 }
 
-.rootPane .minimize-icon:hover {
+.mainAppPane .minimize-icon:hover {
 	-fx-opacity: 1.0;
 }
 
-.rootPane .always-on-top-icon {
+.mainAppPane .always-on-top-icon {
 	-mfx-color:#7a0ed9;
 	-fx-opacity: 0.5;
 }
 
-.rootPane .always-on-top-icon:hover {
+.mainAppPane .always-on-top-icon:hover {
 	-fx-opacity: 1.0;
 }
 
-.rootPane .always-on-top-icon:always-on-top {
+.mainAppPane .always-on-top-icon:always-on-top {
 	-fx-opacity: 1.0;
 }
 
 
-.rootPane .sidebar {
+.mainAppPane .sidebar {
 	-fx-background-color:-primary-gradient;
 	-fx-background-insets: -1 -5 -1 -1;
 	-fx-background-radius: 0 20 20 0;
 }
 
-.rootPane .sidebar .header {
+.mainAppPane .sidebar .header {
 	-fx-font-family: 'Visby Round CF Heavy';
 	-fx-font-size: 24;
 	-fx-text-fill: white;
 }
 
-.rootPane .sidebar .header .mfx-font-icon {
+.mainAppPane .sidebar .header .mfx-font-icon {
 	-mfx-color: white;
 }
 
-.rootPane .sidebar .mfx-scroll-pane {
+.mainAppPane .sidebar .mfx-scroll-pane {
 	-fx-background-color: transparent;
 
 	-track-color: rgba(255, 255, 255, 0.3);
@@ -71,13 +71,13 @@
 	-thumb-hover-color: white;
 }
 
-.rootPane .sidebar .menu-label {
+.mainAppPane .sidebar .menu-label {
 	-fx-font-family: 'Visby Round CF Bold';
 	-fx-font-size: 14;
 	-fx-text-fill: white;
 }
 
-.rootPane .sidebar .navbar .mfx-rectangle-toggle-node {
+.mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node {
 	-fx-background-color: transparent;
 	-fx-background-radius: 0;
 	-fx-border-color: transparent;
@@ -89,26 +89,26 @@
 	-fx-text-fill: white;
 }
 
-.rootPane .sidebar .navbar .mfx-rectangle-toggle-node .mfx-ripple-generator {
+.mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node .mfx-ripple-generator {
 	-mfx-paused: true;
 }
 
-.rootPane .sidebar .navbar .mfx-rectangle-toggle-node .mfx-icon-wrapper .mfx-font-icon {
+.mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node .mfx-icon-wrapper .mfx-font-icon {
 	-mfx-color: white;
 }
 
-.rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected {
+.mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node:selected {
 	-fx-background-color: white;
 	-fx-background-radius: 5;
 	-fx-text-fill: #601cbe;
 }
 
-.rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .selection-rectangle {
+.mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .selection-rectangle {
 	-fx-stroke: transparent;
 	-fx-fill: #601cbe;
 }
 
-.rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .mfx-icon-wrapper .mfx-font-icon {
+.mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .mfx-icon-wrapper .mfx-font-icon {
 	-mfx-color: #601cbe;
 }
 
@@ -124,7 +124,7 @@
 	-fx-text-fill: black;
 }
 
-.rootPane .statusBar{
+.mainAppPane .statusBar{
    	-fx-font-family: 'Visby Round CF Bold';
 	-fx-font-size: 15;
 	-fx-text-fill: black;
