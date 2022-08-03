@@ -9,6 +9,9 @@ public class Constants {
 	public static final String JDK_LOCATION = "JDK_LOC";
 	public static final String WORKSPACE_LOCATION = "WORKSPACE_LOC";
 
+	public static final String USER_HOME_FOLDER = "jdkmanager";
+
+
 
 
 }

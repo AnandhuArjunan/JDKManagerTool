@@ -55,36 +55,29 @@ public class HeaderInstalledJdkPresenter implements Initializable {
 			fillSearchCategories();
 			clearSearchBtn.setOnAction(ev->onSearchClearAction());
 			searchBtn.setOnAction(ev->onSearchAction());
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-
-
 	private void onSearchClearAction() {
 		clearAction.action();
 	}
-
 	private void onSearchAction() {
 			onSearchClearAction();
 			if(!StringUtils.isEmpty(searchBox.getText())) {
 				searchDataConsumer.accept(searchBox.getText(), categoryDropDown.getSelectionModel().getSelectedItem());
 			}
 	}
-
 	private void fillSearchCategories() {
 		categoryDropDown.getItems().addAll("Version","Vendor");
 		categoryDropDown.getSelectionModel().selectFirst();
 	}
 
 	protected void setJavaHomeDetails() throws Exception {
-
 		Map<String,String> javaDetails = JavaEnvUtils.getJavaEnvDetails();
 		javaVersion.setText(javaDetails.get(JavaEnvUtils.JRE_VERSION).trim());
 		javacVersion.setText(javaDetails.get(JavaEnvUtils.JDK_VERSION).trim());
 		vendor.setText(javaDetails.get(JavaEnvUtils.VENDOR).trim());
-
 	}
 }

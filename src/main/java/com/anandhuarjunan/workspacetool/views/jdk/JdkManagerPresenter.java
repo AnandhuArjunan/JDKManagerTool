@@ -83,13 +83,12 @@ public class JdkManagerPresenter implements Initializable {
 	    private MFXButton searchBtn;
 	    @FXML
 	    private HBox headerBlock;
-	   @Inject
+	    @Inject
 	    private ExecutorService executorService = null;
-
+	    @Inject
 	    private InstalledJdkView installedJdkView = null;
 	    @Inject
 	    private DownloadAndInstallJdkView downloadAndInstallJdkView = null;
-
 
 
 	 public JdkManagerPresenter() {
@@ -108,34 +107,41 @@ public class JdkManagerPresenter implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
-
-
 	}
 
 
 	private void initateViews()  {
-		Consumer<Node> headerBlockConsumer =  c->{
-			HBox.setHgrow(c,Priority.ALWAYS );
-			Platform.runLater(()->headerBlock.getChildren().add(c));
-		};
-		Map<String, Object> customProperties = new HashMap<>();
-	    customProperties.put("headerNodeConsumer", headerBlockConsumer);
-	    installedJdkView = new InstalledJdkView(customProperties::get);
-		installedJdk.setSelected(true);
-		setInstalledJdkView();
-		installedJdk.setOnAction(ev->setInstalledJdkView());
-		download.setOnAction(ev->setDownloadJdkView());
+			installedJdk.setSelected(true);
+			setInstalledJdkView();
+			installedJdk.setOnAction(ev->setInstalledJdkView());
+			download.setOnAction(ev->setDownloadJdkView());
+
+
 
 	}
-
 
 	private void setInstalledJdkView() {
+		InstalledJdkPresenter installedJdkPresenter = (InstalledJdkPresenter)installedJdkView.getPresenter();
+		Parent headerNode = installedJdkPresenter.getHeaderView().getView();
+		HBox.setHgrow(headerNode,Priority.ALWAYS );
+		addToHeaderBlock(headerNode);
 		contentPane.setContent(installedJdkView.getView());
+
 	}
 	private void setDownloadJdkView() {
+		DownloadAndInstallJdkPresenter downloadAndInstallJdkPresenter = (DownloadAndInstallJdkPresenter)downloadAndInstallJdkView.getPresenter();
+		Parent headerNode = downloadAndInstallJdkPresenter.getHeaderView().getView();
+		HBox.setHgrow(headerNode,Priority.ALWAYS );
+		addToHeaderBlock(headerNode);
 		contentPane.setContent(downloadAndInstallJdkView.getView());
+	}
+
+	private void addToHeaderBlock(Node headerNode) {
+		if(headerBlock.getChildren().size()==2) {
+			headerBlock.getChildren().add(headerNode);
+		}else {
+			headerBlock.getChildren().set(2,headerNode);
+		}
 	}
 
 

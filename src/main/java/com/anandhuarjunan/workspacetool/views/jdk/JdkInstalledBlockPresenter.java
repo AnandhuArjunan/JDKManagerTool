@@ -2,7 +2,6 @@ package com.anandhuarjunan.workspacetool.views.jdk;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
@@ -15,32 +14,19 @@ import com.anandhuarjunan.workspacetool.constants.CommonEnvHomes;
 import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
 import com.anandhuarjunan.workspacetool.util.Action;
 import com.anandhuarjunan.workspacetool.util.EnvironmentVariableUtils;
-import com.anandhuarjunan.workspacetool.util.Toast;
-import com.anandhuarjunan.workspacetool.util.Util;
-import com.anandhuarjunan.workspacetool.views.Reloadable;
-import com.anandhuarjunan.workspacetool.views.choosedir.ChooseDirectoryPresenter.SyncDirectory;
-import com.anandhuarjunan.workspacetool.views.common.NormalNameLocBlockPresenter;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXProgressBar;
-import io.github.palexdev.materialfx.controls.MFXSimpleNotification;
-import io.github.palexdev.materialfx.dialogs.MFXDialogs;
-import io.github.palexdev.materialfx.enums.NotificationPos;
 import io.github.palexdev.materialfx.font.MFXFontIcon;
-import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
-import io.github.palexdev.materialfx.notifications.base.INotification;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 
 public class JdkInstalledBlockPresenter implements Initializable{
@@ -182,7 +168,6 @@ public class JdkInstalledBlockPresenter implements Initializable{
 
 
 	class StatusBarHandler{
-
 
 		public void disableStatusBar() {
 			mainPane.setTop(null);

@@ -50,8 +50,6 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
 
 	 protected List<Node> allLocalJdkList = null;
 
-	 @Inject
-	 private Consumer<Node> headerNodeConsumer;
 
 	 @Inject
 	 private GenericServiceImpl<JavaEnv, Integer> javaEnvService;
@@ -69,7 +67,6 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
 	    customProperties.put("searchDataConsumer", onSearchAction);
 	    headerInstalledJdkView = new HeaderInstalledJdkView(customProperties::get);
 		loadJdk();
-		headerNodeConsumer.accept(headerInstalledJdkView.getView());
 
 	}
 
@@ -83,6 +80,10 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
 			filterJdks(search,category);
 		}
 	};
+
+	public HeaderInstalledJdkView getHeaderView() {
+		return headerInstalledJdkView;
+	}
 
 	@Override
 	public void reload() {

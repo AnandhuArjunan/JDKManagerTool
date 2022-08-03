@@ -150,5 +150,9 @@ public class Util {
 				return loader.load();
 
 	}
+	public static String getUsersHomeDir() {
+	    String usersHome = System.getProperty("user.home");
+	    return usersHome.replace("\\", "/"); // to support all platforms.
+	}
 
 }
