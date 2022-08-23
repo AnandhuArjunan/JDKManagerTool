@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/beryx-gist/badass-jlink-example-richtextfx/blob/master/LICENSE)
 [![Build Status](https://img.shields.io/travis/beryx-gist/badass-jlink-example-richtextfx/master.svg?label=Build)](https://travis-ci.org/beryx-gist/badass-jlink-example-richtextfx)
 
-## WorkspaceManagerTool ## 
+## JDKManagerTool ## 
 
 It can be used to manage your locally installed JDKs , download and Install New JDK , Set Environment Variable Path. No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
 
