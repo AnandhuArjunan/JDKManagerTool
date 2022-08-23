@@ -3,17 +3,16 @@
 
 ## WorkspaceManagerTool ## 
 
-A Tool that manages your Java Environments , Workspaces , IDEs ,SDKs .etc easily.
-No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
+It can be used to manage your locally installed JDKs , download and Install New JDK , Set Environment Variable Path. No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
 
-Note : Only Windows OS suppored.
+Note : Only Windows OS supported. For other OS use SDKMan - https://github.com/sdkman/sdkman-cli
 
 
 
 ### Tech
 
 It is a Non Modular Application. [Reason  : The Project uses JLink for creating Platform Specific Runtimes, and for a Modular Project, Jlink does not support loading of Automatic Modules,
-Since we had to use many non Modular Jars in this Project , it is required to convert them to Modular Jars .That is an additional Task. To avoid this I decided to make a Non Modular Project] 
+Since we had to use many non Modular Jars in this Project , it is required to convert them to Modular Jars .That is an additional Task. To avoid this I have decided to make a Non Modular Project] 
 
 * Java14
 * OpenJFX 14
