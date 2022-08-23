@@ -24,7 +24,12 @@
                   <Label fx:id="downloadStatus" text="Label" />
                </children>
             </HBox>
-            <MFXProgressBar fx:id="progressbar" />
+            <HBox fx:id="progressBlock" alignment="CENTER" spacing="10.0">
+               <children>
+                  <MFXProgressBar fx:id="progressbar" />
+                  <Label fx:id="downloadedByte" text="0/0" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Separator orientation="VERTICAL" />

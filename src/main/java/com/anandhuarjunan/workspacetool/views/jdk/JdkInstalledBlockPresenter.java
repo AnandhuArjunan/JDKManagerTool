@@ -86,6 +86,9 @@ public class JdkInstalledBlockPresenter implements Initializable{
 	@Inject
 	private ExecutorService executorService;
 
+	@Inject
+	private EnvironmentVariableUtils environmentVariableUtils;
+
 
 
 	public JdkInstalledBlockPresenter() {
@@ -147,8 +150,7 @@ public class JdkInstalledBlockPresenter implements Initializable{
 		}
 	}
 	private void setJavaHome() throws IOException, InterruptedException, AppException {
-		EnvironmentVariableUtils environmentUtils = new EnvironmentVariableUtils();
-		if(environmentUtils.setEnvVariable(CommonEnvHomes.JAVA_HOME, javaEnvModel.getJavaHome()) == 1) {
+		if(environmentVariableUtils.setEnvVariable(CommonEnvHomes.JAVA_HOME, javaEnvModel.getJavaHome()) == 1) {
 			throw new AppException();
 		}
 	}

@@ -1,0 +1,49 @@
+@import '../../fonts/Fonts.css';
+@import '../../style/Colours.css';
+@import '../../style/jdkmanager.css';
+
+*{
+	-installedjdkblock-gradient: linear-gradient(to right bottom,#9a9a9a, #a3a4a8, #adadb6, #b6b7c4, #c0c1d3, #cacbe1, #d3d5f0, #dddfff);
+	-toggleButton-gradient: linear-gradient(to right bottom,#3a83c5, #0096d5, #00aae0, #00bde5, #00cfe4, #00e0dd, #00f0d1, #56ffc3);
+	-selectedjavahome-gradient: linear-gradient(to right bottom,#319a6a, #3ba871, #46b678, #51c57e, #5dd384, #6ae28a, #78f08f, #86ff94);
+
+}
+
+
+
+.downloadSingleBlock{
+    -fx-background-color:-installedjdkblock-gradient;
+	-fx-background-radius: 20;
+	-fx-border-radius: 10;
+}
+
+.downloadSingleBlock .name{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 18;
+	-fx-text-fill: black;
+}
+
+.downloadSingleBlock .location{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: grey;
+}
+
+.downloadSingleBlock .vendor{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 15;
+	-fx-text-fill: grey;
+}
+
+.downloadSingleBlock .buttons{
+-fx-font-family: 'Visby Round CF Bold';
+	-fx-font-size: 10;
+	-fx-text-fill: black;
+	    -fx-background-color:-toggleButton-gradient;
+
+}
+
+.downloadSingleBlock .statusView{
+	-fx-background-color:-selectedjavahome-gradient;
+-fx-background-radius: 10;
+}

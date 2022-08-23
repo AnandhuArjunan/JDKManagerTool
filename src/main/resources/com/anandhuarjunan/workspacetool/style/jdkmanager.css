@@ -28,15 +28,15 @@
 	-fx-text-fill: black;
 }
 
-.rootPane .commonheader .bigLabel{
+.rootPane .commonheader .mediam2Label{
 	-fx-font-family: 'Visby Round CF Bold';
-	-fx-font-size: 18;
+	-fx-font-size: 12;
 	-fx-text-fill: black;
 }
 
-.rootPane .commonheader .mediamLabel{
+.rootPane .commonheader .bigLabel{
 	-fx-font-family: 'Visby Round CF Bold';
-	-fx-font-size: 15;
+	-fx-font-size: 18;
 	-fx-text-fill: black;
 }
 

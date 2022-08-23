@@ -11,6 +11,7 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.Executor;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,6 +20,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.anandhuarjunan.workspacetool.HibernateUtils;
 import com.anandhuarjunan.workspacetool.ResourcesLoader;
+import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.persistance.models.Ides;
 import com.anandhuarjunan.workspacetool.persistance.models.JavaTypes;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
@@ -153,6 +155,15 @@ public class Util {
 	public static String getUsersHomeDir() {
 	    String usersHome = System.getProperty("user.home");
 	    return usersHome.replace("\\", "/"); // to support all platforms.
+	}
+
+	public static boolean checkIfMetadaFileAlreadyExixts() {
+		File file = new File(Constants.METADTA_DOWNLOAD_LOC+File.separator+FilenameUtils.getName(Constants.METADATAURL));
+		return file.exists();
+	}
+	public static File getMetadaFile() {
+		File file = new File(Constants.METADTA_DOWNLOAD_LOC+File.separator+FilenameUtils.getName(Constants.METADATAURL));
+		return file;
 	}
 
 }

@@ -30,6 +30,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+    	System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
         Map<Object, Object> customProperties = new HashMap<>();
         customProperties.put("stage", stage);
         customProperties.put("executorService", executorService);

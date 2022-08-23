@@ -48,6 +48,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -58,7 +59,7 @@ public class JdkManagerPresenter implements Initializable {
 
 		private  ToggleGroup toggleGroup;
 		@FXML
-	 	protected MFXScrollPane contentPane;
+	 	protected VBox contentPane;
 	    @FXML
 	    private ToggleButton download;
 	    @FXML
@@ -121,19 +122,22 @@ public class JdkManagerPresenter implements Initializable {
 	}
 
 	private void setInstalledJdkView() {
-		InstalledJdkPresenter installedJdkPresenter = (InstalledJdkPresenter)installedJdkView.getPresenter();
-		Parent headerNode = installedJdkPresenter.getHeaderView().getView();
-		HBox.setHgrow(headerNode,Priority.ALWAYS );
-		addToHeaderBlock(headerNode);
-		contentPane.setContent(installedJdkView.getView());
+			InstalledJdkPresenter installedJdkPresenter = (InstalledJdkPresenter)installedJdkView.getPresenter();
+			Parent headerNode = installedJdkPresenter.getHeaderView().getView();
+			HBox.setHgrow(headerNode,Priority.ALWAYS );
+			addToHeaderBlock(headerNode);
+			contentPane.getChildren().setAll(installedJdkView.getView());
+
 
 	}
 	private void setDownloadJdkView() {
+
 		DownloadAndInstallJdkPresenter downloadAndInstallJdkPresenter = (DownloadAndInstallJdkPresenter)downloadAndInstallJdkView.getPresenter();
 		Parent headerNode = downloadAndInstallJdkPresenter.getHeaderView().getView();
 		HBox.setHgrow(headerNode,Priority.ALWAYS );
 		addToHeaderBlock(headerNode);
-		contentPane.setContent(downloadAndInstallJdkView.getView());
+		contentPane.getChildren().setAll(downloadAndInstallJdkView.getView());
+
 	}
 
 	private void addToHeaderBlock(Node headerNode) {

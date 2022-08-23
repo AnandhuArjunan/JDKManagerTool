@@ -39,7 +39,7 @@
             </HBox>
             <HBox alignment="CENTER" styleClass="vendorContainer" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="vendor" alignment="CENTER" styleClass="mediamLabel" text="vendor" />
+                  <Label fx:id="vendor" alignment="CENTER" styleClass="mediam2Label" text="vendor" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -81,4 +81,7 @@
          </children>
       </VBox>
    </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
 </HBox>

@@ -81,7 +81,7 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
 		}
 	};
 
-	public HeaderInstalledJdkView getHeaderView() {
+	HeaderInstalledJdkView getHeaderView() {
 		return headerInstalledJdkView;
 	}
 
