@@ -33,6 +33,8 @@ import com.anandhuarjunan.workspacetool.util.Action;
 import com.anandhuarjunan.workspacetool.util.Util;
 import com.anandhuarjunan.workspacetool.views.NoDataPresenter;
 import com.anandhuarjunan.workspacetool.views.Reloadable;
+import com.anandhuarjunan.workspacetool.views.common.PaginatedFlowPanePresenter;
+import com.anandhuarjunan.workspacetool.views.common.PaginatedFlowPaneView;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.transformation.FilteredList;
@@ -41,38 +43,47 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
 public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPresenter {
 
-	 @FXML
-	 protected FlowPane ides;
 
 	 protected List<Node> allLocalJdkList = null;
-
+	 @FXML
+	    private BorderPane pane;
 
 	 @Inject
 	 private GenericServiceImpl<JavaEnv, Integer> javaEnvService;
 
 	 private HeaderInstalledJdkView headerInstalledJdkView;
 
+
+	 private PaginatedFlowPaneView paginatedFlowPaneView;
+	 private PaginatedFlowPanePresenter paginatedFlowPanePresenter;
+
+
 	 public InstalledJdkPresenter() {
+
 		allLocalJdkList = new ArrayList<>();
 	 }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Map<String, Object> customProperties = new HashMap<>();
-	    customProperties.put("clearAction", onClearAction);
-	    customProperties.put("searchDataConsumer", onSearchAction);
-	    headerInstalledJdkView = new HeaderInstalledJdkView(customProperties::get);
+
+
+		Map<String, Object> customProperties2 = new HashMap<>();
+		customProperties2.put("clearAction", onClearAction);
+		customProperties2.put("searchDataConsumer", onSearchAction);
+	    headerInstalledJdkView = new HeaderInstalledJdkView(customProperties2::get);
 		loadJdk();
+		pane.setCenter(paginatedFlowPaneView.getView());
+
 
 	}
 
 	Action onClearAction = ()->{
-		ides.getChildren().clear();
-		ides.getChildren().addAll(allLocalJdkList);
+		paginatedFlowPanePresenter.resetAndAddAll(allLocalJdkList);
 	};
 
 	BiConsumer<String,String> onSearchAction = (search,category)->{
@@ -92,8 +103,8 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
 	}
 
 	public void loadJdk()  {
-		ides.getChildren().clear();
 		allLocalJdkList.clear();
+		List<Node> blockViews = new ArrayList<>();
 		List<JavaEnv> javaenv =  javaEnvService.findAll(JavaEnv.class);
 		javaenv.forEach(w->{
 				Map<String, Object> customProperties = new HashMap<>();
@@ -109,12 +120,17 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
 		    	JdkInstalledBlockView jdkInstalledBlock = new JdkInstalledBlockView(customProperties::get);
 		    	jdkInstalledBlock.getView().setUserData(w);
 		    	if(!((JdkInstalledBlockPresenter)jdkInstalledBlock.getPresenter()).isDefault()) {
-		    		ides.getChildren().add(jdkInstalledBlock.getView());
+		    		blockViews.add(jdkInstalledBlock.getView());
 		    	}else {
-		    		ides.getChildren().add(0,jdkInstalledBlock.getView());
+		    		blockViews.add(0,jdkInstalledBlock.getView());
 		    	}
 		  });
-	   allLocalJdkList.addAll(ides.getChildren());//for search operation
+
+		Map<String, Object> customProperties = new HashMap<>();
+	    customProperties.put("initNodes", blockViews);
+		paginatedFlowPaneView = new PaginatedFlowPaneView(customProperties::get);
+		paginatedFlowPanePresenter = (PaginatedFlowPanePresenter) paginatedFlowPaneView.getPresenter();
+	    allLocalJdkList.addAll(paginatedFlowPanePresenter.getAll());//for search operation
 		 //addNoDataController(ides, controller.mainPane,controller.contentPane);
 
 	}
@@ -126,8 +142,7 @@ public class InstalledJdkPresenter implements Initializable,Reloadable,NoDataPre
         }else if("Version".equalsIgnoreCase(category)) {
         	predicate = e->((JavaEnv)e.getUserData()).getVersion().toLowerCase().contains(searchWord.toLowerCase());
         }
-        List<Node> filtered = ides.getChildren().parallelStream().filter(predicate).collect(Collectors.toList());
-        ides.getChildren().clear();
-        ides.getChildren().addAll(filtered);
+        List<Node> filtered = paginatedFlowPanePresenter.getAll().parallelStream().filter(predicate).collect(Collectors.toList());
+        paginatedFlowPanePresenter.resetAndAddAll(filtered);
 	}
 }

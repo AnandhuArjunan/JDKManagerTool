@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.guava:guava:31.1-jre'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 	// https://mvnrepository.com/artifact/com.airhacks/afterburner.fx

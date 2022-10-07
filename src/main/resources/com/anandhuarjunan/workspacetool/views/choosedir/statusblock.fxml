@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" styleClass="statusBlock" stylesheets="@../style/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.controller.choosedir.StatusBlockController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" styleClass="statusBlock" stylesheets="@../style/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MFXFontIcon description="mfx-info-circle" size="15.0" />
       <Label text="Found" />

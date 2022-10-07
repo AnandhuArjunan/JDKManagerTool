@@ -8,7 +8,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -316,16 +318,11 @@ public class ChooseDirectoryPresenter implements Initializable {
 
 	public synchronized void onScanComplete(AbstractFileDetector abstractFileDetector, int fileFound) {
 
-		FXMLLoader loader = new FXMLLoader(ResourcesLoader.loadURL("fxml/resultblock.fxml"));
-		loader.setControllerFactory(
-				c -> new StatusBlockPresenter(String.valueOf(fileFound), abstractFileDetector.name().orElseGet(() -> "")));
-		try {
-			Parent root = loader.load();
-			resultFlow.getChildren().add(root);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			Map<String, Object> customProperties = new HashMap<>();
+		    customProperties.put("fileFound", String.valueOf(fileFound));
+		    customProperties.put("strname", abstractFileDetector.name().orElseGet(() -> ""));
+			StatusBlockView blockView = new StatusBlockView(customProperties::get);
+			resultFlow.getChildren().add(blockView.getView());
 	}
 
 	public class SyncDirectory {
@@ -409,7 +406,7 @@ public class ChooseDirectoryPresenter implements Initializable {
 		}
 
 		public SyncDirectoryBuilder haveToReload(ReloadableViews reloadableViews) {
-			this.reloadableControllers.add((Reloadable)dependencyControllers.get(reloadableViews));
+		//	this.reloadableControllers.add((Reloadable)dependencyControllers.get(reloadableViews));
 			return this;
 		}
 
