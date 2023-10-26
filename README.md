@@ -13,7 +13,7 @@ Note: Only for Windows OS. For other OS use SDKMan - https://github.com/sdkman/s
 
 ### Tech
 
-It is a Non Modular Application. [Reason  : The Project uses JLink for creating Platform Specific Runtime, and for a Modular Project, Jlink does not support loading of Automatic Modules,
+It is a Non Modular Application. [The Project uses JLink for creating Platform Specific Runtime, and for a Modular Project, Jlink does not support loading of Automatic Modules,
 Since we had to use many non Modular Jars in this Project , it is required to convert them to Modular Jars .That is an additional Task. To avoid this I have decided to make a Non Modular Project] 
 
 * Java14
