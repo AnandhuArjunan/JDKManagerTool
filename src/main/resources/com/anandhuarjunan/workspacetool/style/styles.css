@@ -7,9 +7,8 @@
 }
 
 .mainAppPane {
-	-fx-background-color: white;
+	-fx-background-color: #F9F9F8;
 	-fx-background-radius: 10;
-	-fx-border-color: #ebebeb;
 	-fx-border-radius: 10;
 }
 /**************************************************
@@ -100,7 +99,7 @@
 .mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node:selected {
 	-fx-background-color: white;
 	-fx-background-radius: 5;
-	-fx-text-fill: #601cbe;
+	-fx-text-fill: black;
 }
 
 .mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .selection-rectangle {
@@ -109,7 +108,7 @@
 }
 
 .mainAppPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .mfx-icon-wrapper .mfx-font-icon {
-	-mfx-color: #601cbe;
+	-mfx-color: black;
 }
 
 .contentPane{

@@ -5,12 +5,16 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
+import com.anandhuarjunan.workspacetool.util.SimpleViewSwitcher;
+
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 public class StatusBlockPresenter implements Initializable {
-
+    @FXML
+    private MFXButton viewResults;
 
 	   @FXML
 	    private Label foundNo;
@@ -19,17 +23,14 @@ public class StatusBlockPresenter implements Initializable {
 	    private Label name;
 
 	    @Inject
-	    String strname = null;
+	    private String fileFound = null;
+
 	    @Inject
-	    String fileFound = null;
-
-
+		private SimpleViewSwitcher viewSwitcher;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		foundNo.setText(fileFound);
-		name.setText(strname);
-
+		viewResults.setOnAction(ev->viewSwitcher.switchToAndEnableButton(1));
 	}
-
 }

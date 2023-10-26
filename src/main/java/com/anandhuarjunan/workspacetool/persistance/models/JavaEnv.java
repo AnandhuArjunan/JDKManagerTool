@@ -28,9 +28,6 @@ public class JavaEnv {
     @Column(name="JE_JAVA_HOME")
  	private String javaHome;
 
-    @OneToOne
-	@JoinColumn(name = "JE_JT_ID")
- 	private JavaTypes javaType;
 
 	public Integer getId() {
 		return id;
@@ -61,12 +58,6 @@ public class JavaEnv {
 	}
 	public void setJavaHome(String javaHome) {
 		this.javaHome = javaHome;
-	}
-	public JavaTypes getJavaType() {
-		return javaType;
-	}
-	public void setJavaType(JavaTypes javaType) {
-		this.javaType = javaType;
 	}
 
 

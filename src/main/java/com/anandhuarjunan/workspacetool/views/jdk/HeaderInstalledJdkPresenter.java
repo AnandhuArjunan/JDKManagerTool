@@ -31,9 +31,6 @@ public class HeaderInstalledJdkPresenter implements Initializable {
     protected Label javaVersion;
 
     @FXML
-    protected Label javacVersion;
-
-    @FXML
     private TextField searchBox;
 
     @FXML
@@ -66,7 +63,7 @@ public class HeaderInstalledJdkPresenter implements Initializable {
 	private void onSearchAction() {
 			onSearchClearAction();
 			if(!StringUtils.isEmpty(searchBox.getText())) {
-				searchDataConsumer.accept(searchBox.getText(), categoryDropDown.getSelectionModel().getSelectedItem());
+				searchDataConsumer.accept(searchBox.getText().toLowerCase(), categoryDropDown.getSelectionModel().getSelectedItem());
 			}
 	}
 	private void fillSearchCategories() {
@@ -77,7 +74,6 @@ public class HeaderInstalledJdkPresenter implements Initializable {
 	protected void setJavaHomeDetails() throws Exception {
 		Map<String,String> javaDetails = JavaEnvUtils.getJavaEnvDetails();
 		javaVersion.setText(javaDetails.get(JavaEnvUtils.JRE_VERSION).trim());
-		javacVersion.setText(javaDetails.get(JavaEnvUtils.JDK_VERSION).trim());
 		vendor.setText(javaDetails.get(JavaEnvUtils.VENDOR).trim());
 	}
 }

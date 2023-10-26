@@ -22,7 +22,6 @@ import com.anandhuarjunan.workspacetool.HibernateUtils;
 import com.anandhuarjunan.workspacetool.ResourcesLoader;
 import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.persistance.models.Ides;
-import com.anandhuarjunan.workspacetool.persistance.models.JavaTypes;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
 
 import javafx.fxml.FXMLLoader;
@@ -61,14 +60,6 @@ public class Util {
 		 return ides;
 	}
 
-	public static JavaTypes fetchJavaType(String key) {
-		 SessionFactory session =  HibernateUtils.getSessionFactory();
-		 Session session2 = session.openSession();
-		 JavaTypes javaType =  session2.find(JavaTypes.class, key);
-
-		 session2.close();
-		 return javaType;
-	}
 
 
 	public static boolean isDataPresent(Class value, Object idValue) {

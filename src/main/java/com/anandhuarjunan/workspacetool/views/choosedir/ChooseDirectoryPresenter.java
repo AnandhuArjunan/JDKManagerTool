@@ -32,22 +32,17 @@ import com.anandhuarjunan.workspacetool.ResourcesLoader;
 import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.constants.ReloadableViews;
 import com.anandhuarjunan.workspacetool.filemetadata.AbstractFileMetadata;
-import com.anandhuarjunan.workspacetool.filemetadata.JavaJdkMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.JavaJreMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsAndroidStudioMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsEclipseIDEMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsEclipseWorkspaceMetadata;
 import com.anandhuarjunan.workspacetool.filemetadata.WindowsStsIdeMetadata;
 import com.anandhuarjunan.workspacetool.filescanner.AbstractFileDetector;
-import com.anandhuarjunan.workspacetool.filescanner.EclipseWorkspaceDetector;
-import com.anandhuarjunan.workspacetool.filescanner.ide.windows.AndroidStudioIDEDetector;
-import com.anandhuarjunan.workspacetool.filescanner.ide.windows.EclipseIDEDetector;
-import com.anandhuarjunan.workspacetool.filescanner.ide.windows.StsIdeDetector;
-import com.anandhuarjunan.workspacetool.filescanner.jdk.windows.WindowsJdkDetector;
 import com.anandhuarjunan.workspacetool.filescanner.jdk.windows.WindowsJreDetector;
 import com.anandhuarjunan.workspacetool.util.Action;
 import com.anandhuarjunan.workspacetool.util.AnimationUtils;
 import com.anandhuarjunan.workspacetool.util.JFXUtils;
+import com.anandhuarjunan.workspacetool.util.SimpleViewSwitcher;
 import com.anandhuarjunan.workspacetool.util.Util;
 import com.anandhuarjunan.workspacetool.views.Reloadable;
 
@@ -74,14 +69,6 @@ import javafx.util.Pair;
 
 public class ChooseDirectoryPresenter implements Initializable {
 
-	@FXML
-	private MFXButton ideBtn;
-
-	@FXML
-	private MFXTextField ideLoc;
-
-	@FXML
-	private MFXButton ideSync;
 
 	@FXML
 	private MFXButton jdkBtn;
@@ -94,27 +81,6 @@ public class ChooseDirectoryPresenter implements Initializable {
 
 	@FXML
 	private Label ongoingStatus;
-
-	@FXML
-	private MFXButton rootBtn;
-
-	@FXML
-	private MFXTextField rootLoc;
-
-	@FXML
-	private MFXButton syncAll;
-
-	@FXML
-	private MFXButton syncRoot;
-
-	@FXML
-	private MFXButton workBtn;
-
-	@FXML
-	private MFXTextField workLoc;
-
-	@FXML
-	private MFXButton workSync;
 
 	@FXML
 	private VBox progressContainer;
@@ -144,6 +110,9 @@ public class ChooseDirectoryPresenter implements Initializable {
 
 	@Inject
 	private ExecutorService executorService;
+	
+	@Inject
+	private SimpleViewSwitcher simpleViewSwitcher;
 
 	public ChooseDirectoryPresenter() {
 		dependencyControllers = new EnumMap<>(ReloadableViews.class);
@@ -173,40 +142,18 @@ public class ChooseDirectoryPresenter implements Initializable {
 
 	private void addSyncButtonHandlers() {
 
-		ideSync.setOnAction(ev ->startIdeSync());
-
-		workSync.setOnAction(ev -> startWorkspaceSync());
 
 		jdkSync.setOnAction(ev -> startJdkSync());
 
-		syncAll.setOnAction(ev -> startRootSync());
 
 	}
 
 	private void enableButtons() {
 
-		JFXUtils.enableNodes(workBtn,ideBtn,rootBtn,jdkBtn,syncAll,ideSync,jdkSync,workSync);
+		JFXUtils.enableNodes(jdkBtn,jdkSync);
 
 	}
-	private void startRootSync() {
 
-		try {
-			SyncDirectoryBuilder directoryBuilder = new SyncDirectoryBuilder();
-			directoryBuilder
-					.ofTableName("JAVA_ENV","WINDOWS_IDE","Workspaces")
-					.haveToReload(ReloadableViews.JDK).haveToReload(ReloadableViews.IDE).haveToReload(ReloadableViews.WORKSPACE)
-					.ofMetadata(new Triplet<>(jdkLoc.getText(),JavaJdkMetadata.class, WindowsJdkDetector.class))
-					.ofMetadata(new Triplet<>(jdkLoc.getText(),JavaJreMetadata.class, WindowsJreDetector.class))
-					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsAndroidStudioMetadata.class, AndroidStudioIDEDetector.class))
-					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsEclipseIDEMetadata.class, EclipseIDEDetector.class))
-					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsStsIdeMetadata.class, StsIdeDetector.class))
-					.ofMetadata(new Triplet<>(workLoc.getText(),WindowsEclipseWorkspaceMetadata.class, EclipseWorkspaceDetector.class))
-					.startSync();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 
 	private void startJdkSync() {
@@ -216,7 +163,6 @@ public class ChooseDirectoryPresenter implements Initializable {
 			directoryBuilder
 					.ofTableName("JAVA_ENV")
 					.haveToReload(ReloadableViews.JDK)
-					.ofMetadata(new Triplet<>(jdkLoc.getText(),JavaJdkMetadata.class, WindowsJdkDetector.class))
 					.ofMetadata(new Triplet<>(jdkLoc.getText(),JavaJreMetadata.class, WindowsJreDetector.class))
 					.startSync();
 		} catch (Exception e) {
@@ -226,42 +172,6 @@ public class ChooseDirectoryPresenter implements Initializable {
 	}
 
 
-	private void startIdeSync() {
-
-
-		try {
-			SyncDirectoryBuilder directoryBuilder = new SyncDirectoryBuilder();
-			directoryBuilder.ofTableName("WINDOWS_IDE")
-					.haveToReload(ReloadableViews.IDE)
-					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsAndroidStudioMetadata.class, AndroidStudioIDEDetector.class))
-					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsEclipseIDEMetadata.class, EclipseIDEDetector.class))
-					.ofMetadata(new Triplet<>(ideLoc.getText(),WindowsStsIdeMetadata.class, StsIdeDetector.class))
-					.startSync();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-	}
-
-
-
-	private void startWorkspaceSync() {
-		try {
-			SyncDirectoryBuilder directoryBuilder = new SyncDirectoryBuilder();
-			directoryBuilder
-					.ofTableName("Workspaces")
-					.haveToReload(ReloadableViews.WORKSPACE)
-					.ofMetadata(new Triplet<>(workLoc.getText(),WindowsEclipseWorkspaceMetadata.class, EclipseWorkspaceDetector.class))
-					.startSync();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
-
-
 	private void hideProgessPane() {
 		progressContainer.getChildren().remove(progressBar);
 		progressContainer.getChildren().remove(ongoingStatus);
@@ -269,36 +179,19 @@ public class ChooseDirectoryPresenter implements Initializable {
 	}
 
 	private void addDirectoryChoosers() {
-
-		Pair<String, TextField> workspaceNode = new Pair<>(Constants.WORKSPACE_LOCATION, workLoc);
-		Pair<String, TextField> ideNode = new Pair<>(Constants.IDE_LOCATION, ideLoc);
-		Pair<String, TextField> jdkNode = new Pair<>(Constants.JDK_LOCATION, jdkLoc);
-		Pair<String, TextField> rootNode = new Pair<>(Constants.ROOT_LOCATION, rootLoc);
-
-
-		addDirectoryChooser(workBtn, Arrays.asList(workspaceNode));
-		addDirectoryChooser(ideBtn, Arrays.asList(ideNode));
-		addDirectoryChooser(jdkBtn, Arrays.asList(jdkNode));
-		addDirectoryChooser(rootBtn, Arrays.asList(workspaceNode, ideNode, jdkNode,rootNode));
-
+		addDirectoryChooser(jdkBtn);
 	}
 
-	private void addDirectoryChooser(Button clickAction, List<Pair<String, TextField>> textFields) {
+	private void addDirectoryChooser(Button clickAction) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		clickAction.setOnAction(e -> {
 			File selectedDirectory = directoryChooser.showDialog(clickAction.getScene().getWindow());
 			if (Objects.nonNull(selectedDirectory)) {
-				for (Pair<String, TextField> textField : textFields) {
-					String content = textField.getValue().getText();
-					if(content.trim().isEmpty() || rootBtn.getId().equalsIgnoreCase(clickAction.getId())) {
-						textField.getValue().setText(selectedDirectory.getAbsolutePath());
-					}else {
-						textField.getValue().setText(content+File.pathSeparator+selectedDirectory.getAbsolutePath());
+					String content = jdkLoc.getText();
+					jdkLoc.setText(content+File.pathSeparator+selectedDirectory.getAbsolutePath());
 
-					}
-					Util.putSettings(textField.getKey(), selectedDirectory.getAbsolutePath());
-				}
-
+					Util.putSettings(Constants.JDK_LOCATION, selectedDirectory.getAbsolutePath());
+			
 			}
 
 		});
@@ -309,9 +202,6 @@ public class ChooseDirectoryPresenter implements Initializable {
 	}
 
 	private void loadSettingsFromDb() {
-		rootLoc.setText(Util.getSettings(Constants.ROOT_LOCATION));
-		workLoc.setText(Util.getSettings(Constants.WORKSPACE_LOCATION));
-		ideLoc.setText(Util.getSettings(Constants.IDE_LOCATION));
 		jdkLoc.setText(Util.getSettings(Constants.JDK_LOCATION));
 
 	}
@@ -320,7 +210,7 @@ public class ChooseDirectoryPresenter implements Initializable {
 
 			Map<String, Object> customProperties = new HashMap<>();
 		    customProperties.put("fileFound", String.valueOf(fileFound));
-		    customProperties.put("strname", abstractFileDetector.name().orElseGet(() -> ""));
+		    customProperties.put("viewSwitcher", simpleViewSwitcher);
 			StatusBlockView blockView = new StatusBlockView(customProperties::get);
 			resultFlow.getChildren().add(blockView.getView());
 	}
@@ -347,7 +237,7 @@ public class ChooseDirectoryPresenter implements Initializable {
 		private void sync() {
 
 			Platform.runLater(
-					() -> ongoingStatus.setText("Searching for " + abstractFileDetector.name().orElseGet(() -> "")));
+					() -> ongoingStatus.setText("Searching for "+"Java"));
 
 			List<File> files = abstractFileDetector.detect();
 			SessionFactory session = HibernateUtils.getSessionFactory();
@@ -359,7 +249,7 @@ public class ChooseDirectoryPresenter implements Initializable {
 					constructor = metadataClass.getConstructor(File.class);
 					AbstractFileMetadata<?> fileMetadata = (AbstractFileMetadata<?>) constructor.newInstance(file);
 					Platform.runLater(() -> ongoingStatus
-							.setText("Detecting Metadata of " + fileMetadata.name().orElseGet(() -> "")));
+							.setText("Detecting Metadata of " + "Java Env"));
 					Optional<?> result = fileMetadata.start();
 					session2.persist(result.get());
 
@@ -471,7 +361,7 @@ public class ChooseDirectoryPresenter implements Initializable {
 
 		private void disableButtons() {
 
-			JFXUtils.disableNodes(workBtn,ideBtn,rootBtn,jdkBtn,syncAll,ideSync,jdkSync,workSync);
+			JFXUtils.disableNodes(jdkBtn,jdkSync);
 
 
 		}

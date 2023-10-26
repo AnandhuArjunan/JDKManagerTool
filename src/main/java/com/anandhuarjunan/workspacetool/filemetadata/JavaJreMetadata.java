@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
-import com.anandhuarjunan.workspacetool.persistance.models.JavaTypes;
 import com.anandhuarjunan.workspacetool.util.Util;
 
 public class JavaJreMetadata extends AbstractFileMetadata<JavaEnv> {
@@ -28,10 +27,8 @@ public class JavaJreMetadata extends AbstractFileMetadata<JavaEnv> {
 	@Override
 	protected JavaEnv getMetadata() {
 		JavaEnv javaEnv = new JavaEnv();
-		JavaTypes javaTypes = Util.fetchJavaType("JRE");
 		javaEnv.setJavaHome(rootLoc.getAbsoluteFile().getParentFile().getAbsoluteFile().getParentFile().getAbsolutePath());
 		javaEnv.setExecutableLoc(rootLoc.getAbsoluteFile().getParentFile().getAbsoluteFile().getParentFile().getAbsolutePath()+File.separator+"bin"+File.separator);
-		javaEnv.setJavaType(javaTypes);
 		String line = javaEnv.getExecutableLoc()+"java.exe -version";
 
 		try {

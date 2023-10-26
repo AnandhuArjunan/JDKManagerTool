@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.anandhuarjunan.workspacetool.AppException;
@@ -36,9 +37,6 @@ public class JdkInstalledBlockPresenter implements Initializable{
 
     @FXML
     private VBox buttonGroup;
-
-    @FXML
-    private MFXButton delete;
 
     @FXML
     private ImageView icon;
@@ -107,7 +105,13 @@ public class JdkInstalledBlockPresenter implements Initializable{
 			e.printStackTrace();
 		}
 
-
+		locateInExplorer.setOnAction(ev->{
+			try {
+				Runtime.getRuntime().exec("explorer.exe /select," + FilenameUtils.separatorsToSystem(wlocation.getText()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 		setdefault.setOnAction(ev->makeDefault());
 
 	}
@@ -121,11 +125,9 @@ public class JdkInstalledBlockPresenter implements Initializable{
 				Platform.runLater(()->{
 					afterSetDefaultAction.action();
 					statusBarHandler.setDefaultHomeBlock();
-					 //Toast.makeText(stage, "\"Done ! Re open your Command Prompt to affect the Environment Change!\"", 5000, 0, 0);
 				});
 			} catch (IOException | InterruptedException | AppException e) {
 			    Thread.currentThread().interrupt();
-			    //statusManager.setError("Something Went Wrong!").show();
 			}
 		};
 		executorService.execute(bgThread);
@@ -183,7 +185,7 @@ public class JdkInstalledBlockPresenter implements Initializable{
 			currentJavaHomeFlag.getChildren().clear();
 			currentJavaHomeFlag.getChildren().add(currentStatus);
 			currentJavaHomeFlag.getChildren().add(progressBar);
-			currentStatus.setText("Setting..");
+			currentStatus.setText("Setting...");
 		}
 		public void setDefaultHomeBlock() {
 			enableStatusBar();

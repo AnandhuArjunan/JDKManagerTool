@@ -14,7 +14,9 @@ import javax.inject.Inject;
 import com.airhacks.afterburner.injection.Injector;
 import com.anandhuarjunan.workspacetool.constants.Constants;
 import com.anandhuarjunan.workspacetool.constants.ReloadableViews;
+import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
+import com.anandhuarjunan.workspacetool.persistance.service.GenericServiceImpl;
 import com.anandhuarjunan.workspacetool.util.Action;
 import com.anandhuarjunan.workspacetool.util.AnimationUtils;
 import com.anandhuarjunan.workspacetool.util.SimpleViewSwitcher;
@@ -90,7 +92,6 @@ public class MainPresenter implements Initializable {
     @FXML
     private BorderPane root;
 
-	@Inject
 	private ChooseDirectoryView chooseDirectoryView = null;
 
 	@Inject
@@ -98,6 +99,9 @@ public class MainPresenter implements Initializable {
 
 	@Inject
 	private LoadingView loadingView = null;
+	
+	 @Inject
+	 private GenericServiceImpl<JavaEnv, Integer> javaEnvService;
 
 
 
@@ -137,10 +141,16 @@ public class MainPresenter implements Initializable {
 	}
 
 	private void loadViews()  {
-
+		Map<Object, Object> customProperties = new HashMap<>();
 		SimpleViewSwitcher simpleViewSwitcher = new SimpleViewSwitcher();
-		simpleViewSwitcher.addView(ViewSwitcherBean.builder().ofDefault(true).ofActionButton(createToggle("mfx-search", "Choose Root Directory")).ofView(chooseDirectoryView).get());
-		simpleViewSwitcher.addView(ViewSwitcherBean.builder().ofActionButton(createToggle("mfx-circle-dot", "JDK Manager")).ofView(jdkManagerView).get());
+
+        customProperties.put("simpleViewSwitcher", simpleViewSwitcher);
+		chooseDirectoryView = new ChooseDirectoryView(customProperties::get);
+		
+		simpleViewSwitcher.addView(ViewSwitcherBean.builder().ofDefault(true).ofActionButton(createToggle("mfx-search", "Choose Scan Directory")).ofView(chooseDirectoryView).get());
+		ToggleButton toggleButton = createToggle("mfx-circle-dot", "JDKs");
+		toggleButton.setDisable(javaEnvService.findAll(JavaEnv.class).isEmpty());
+		simpleViewSwitcher.addView(ViewSwitcherBean.builder().ofActionButton(toggleButton).ofView(jdkManagerView).get());
 
 		simpleViewSwitcher.addContentPane(contentPane);
 		simpleViewSwitcher.addToggleBar(navBar);
@@ -156,7 +166,6 @@ public class MainPresenter implements Initializable {
 		toggleNode.setAlignment(Pos.CENTER_LEFT);
 		toggleNode.setMaxWidth(Double.MAX_VALUE);
 		toggleNode.setToggleGroup(toggleGroup);
-
 		return toggleNode;
 	}
 

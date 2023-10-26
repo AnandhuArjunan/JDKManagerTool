@@ -3,6 +3,7 @@ package com.anandhuarjunan.workspacetool.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import com.airhacks.afterburner.views.FXMLView;
@@ -25,24 +26,50 @@ public class SimpleViewSwitcher {
 	public void show() {
 		list.forEach(e->{
 			if(Objects.nonNull(e)) {
-				if(Objects.nonNull(loadingView)) {
-					Objects.requireNonNull(contentPane,"ContentPane is mandatory").getChildren().setAll(loadingView.getView());
-				}
+				
 				if(e.isDefault()) {
 					e.getActionButton().setSelected(true);
-					e.getView().getViewAsync(contentPane.getChildren()::setAll);
+					loadViewAsync(e);
 				}
 				Objects.requireNonNull(toggleBar,"togglebar is mandatory").getChildren().add(e.getActionButton());
-				e.getActionButton().setOnAction(ev->{
-						e.getView().getViewAsync(contentPane.getChildren()::setAll);
-
-						//contentPane.getChildren().setAll(e.getView());
-					});
+				e.getActionButton().setOnAction(ev->loadViewAsync(e));
 
 			}
 		});
 
 
+	}
+	
+	public void switchTo(FXMLView fxmlView) {
+		Optional<ViewSwitcherBean> listt = list.stream().filter(ew->ew.getView().equals(fxmlView)).findFirst();
+		if(listt.isPresent()) {
+			loadViewAsync(listt.get());
+			
+		}
+	}
+	public void switchTo(int index) {
+		if(list.size()>index) {
+			ViewSwitcherBean switcherBean = list.get(index);
+			switcherBean.getActionButton().setSelected(true);
+			loadViewAsync(switcherBean);
+		}
+
+	}
+	
+	public void switchToAndEnableButton(int index) {
+		if(list.size()>index) {
+			ViewSwitcherBean switcherBean = list.get(index);
+			switcherBean.getActionButton().setSelected(true);
+			switcherBean.getActionButton().setDisable(false);
+			loadViewAsync(switcherBean);
+		}
+
+	}
+	private void loadViewAsync(ViewSwitcherBean bean) {
+		if(Objects.nonNull(loadingView)) {
+			Objects.requireNonNull(contentPane,"ContentPane is mandatory").getChildren().setAll(loadingView.getView());
+		}
+		bean.getView().getViewAsync(contentPane.getChildren()::setAll);
 	}
 
 	public void addToggleBar(Pane toggleBar) {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainPane" styleClass="rootPane" stylesheets="@../../style/jdkmanager.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.views.jdk.JdkManagerPresenter">
+<BorderPane fx:id="mainPane" styleClass="rootPane" stylesheets="@../../style/jdkmanager.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.views.jdk.JdkManagerPresenter">
    <top>
       <VBox alignment="CENTER" spacing="5.0" styleClass="commonheader" BorderPane.alignment="CENTER">
          <children>
@@ -26,7 +26,7 @@
                               <String fx:value="mediamLabel" />
                            </styleClass>
                         </ToggleButton>
-                        <ToggleButton fx:id="download" minWidth="200.0" mnemonicParsing="false" text="Download and Install">
+                        <ToggleButton fx:id="download" disable="true" minWidth="200.0" mnemonicParsing="false" text="Download and Install">
                            <styleClass>
                               <String fx:value="toggleButtons" />
                               <String fx:value="mediamLabel" />
@@ -35,7 +35,7 @@
                               <MFXFontIcon description="mfx-plus" size="15.0" />
                            </graphic>
                         </ToggleButton>
-                        <ToggleButton fx:id="settings" mnemonicParsing="false" text="Settings">
+                        <ToggleButton fx:id="settings" disable="true" mnemonicParsing="false" text="Settings">
                            <styleClass>
                               <String fx:value="toggleButtons" />
                               <String fx:value="mediamLabel" />

@@ -94,7 +94,7 @@ public class DownloadAndInstallJdkPresenter implements Initializable,Reloadable,
 	};
 
 	BiConsumer<String,String> onSearchAction = (search,category)->{
-
+		
 	};
 
 	private void afterGettingMetadata(File metadataFile) {

@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 import org.javatuples.Pair;
 
+import com.anandhuarjunan.workspacetool.constants.CommonEnvHomes;
+
 public class JavaEnvUtils {
 
 
@@ -35,26 +37,18 @@ public static Map<String,String> getJavaEnvDetails() throws Exception{
 	else {
 		map.put(JRE_VERSION,"Not Found!");
 		map.put(VENDOR,"Not Found!");
-	}
-	Pair<Integer, String> versionInfo2 = getJavac();
-
-	if(versionInfo2.getValue0() == 0) {
-		String[] info2 = versionInfo2.getValue1().split(" ");
-		map.put(JDK_VERSION,null != info2 && info2.length>1?info2[1].trim():"Not Found!");
-	}else {
-		map.put(JDK_VERSION,"Not Found!");
-
+	
 	}
 
 
 	return map;
 }
 
-private static Pair<Integer,String> getJavac() throws IOException, InterruptedException {
-	return ProcessUtils.executeCommand(new File(System.getProperty("user.home")), "javac","-version");
-}
 private static Pair<Integer,String> getJava() throws IOException, InterruptedException {
-	return ProcessUtils.executeCommand(new File(System.getProperty("user.home")), "java","-version");
+	EnvironmentVariableUtils environmentUtils = new EnvironmentVariableUtils();
+	String javaPathFromEnv = environmentUtils.getEnvValue(CommonEnvHomes.JAVA_HOME);
+	System.out.println(javaPathFromEnv.trim()+File.separator+"bin");
+	return ProcessUtils.executeCommand(new File(javaPathFromEnv.trim()+File.separator+"bin"+File.separator), "java","-version");
 
 }
 

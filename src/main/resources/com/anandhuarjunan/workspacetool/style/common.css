@@ -23,13 +23,13 @@
 .grid-pane {
 	-fx-background-color: transparent;
 		-fx-background-radius: 20;
-
+-fx-border-radius: 20;
 }
 
 .grid-background {
-	-fx-background-color: #e8eaf6;
+	-fx-background-color: -primary-gradient;
 	-fx-background-radius: 20;
-	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);
+	-fx-border-radius: 20;
 }
 .grid-background .dirText{
 	-fx-background-radius: 5;

@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXProgressBar?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.font.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -12,11 +13,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="600.0" styleClass="installedSingleBlock" stylesheets="@jdkinstalledblock.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.views.jdk.JdkInstalledBlockPresenter">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0" styleClass="installedSingleBlock" stylesheets="@jdkinstalledblock.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anandhuarjunan.workspacetool.views.jdk.JdkInstalledBlockPresenter">
    <center>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="icon" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="icon" fitHeight="150.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -28,8 +29,16 @@
                <children>
                   <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" styleClass="name" text="name" wrapText="true" VBox.vgrow="ALWAYS" />
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="vendor" styleClass="vendor" text="vendor" wrapText="true" />
-                  <Label fx:id="wlocation" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="location" text="location" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <MFXScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                     <content>
+                        <Label fx:id="vendor" styleClass="vendor" text="vendor" wrapText="true" />
+                     </content>
+                  </MFXScrollPane>
+                  <MFXScrollPane fitToHeight="true" style="-fx-background-color: transparent;">
+                     <content>
+                        <Label fx:id="wlocation" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="location" text="location" wrapText="true" />
+                     </content>
+                  </MFXScrollPane>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -48,14 +57,9 @@
                         <MFXFontIcon description="mfx-variant9-mark" />
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="locateInExplorer" minWidth="120.0" prefWidth="120.0" styleClass="buttons" text="Locate in Explorer" VBox.vgrow="ALWAYS">
+                  <MFXButton fx:id="locateInExplorer" minWidth="100.0" prefWidth="100.0" styleClass="buttons" text="Locate" VBox.vgrow="ALWAYS">
                      <graphic>
                         <MFXFontIcon description="mfx-google-script" />
-                     </graphic>
-                  </MFXButton>
-                  <MFXButton fx:id="delete" minWidth="80.0" prefWidth="80.0" styleClass="buttons" text="Delete" VBox.vgrow="ALWAYS">
-                     <graphic>
-                        <MFXFontIcon description="mfx-delete" size="12.0" />
                      </graphic>
                   </MFXButton>
                </children>
@@ -67,8 +71,8 @@
       <HBox fx:id="currentJavaHomeFlag" alignment="CENTER_LEFT" spacing="5.0" styleClass="statusView" BorderPane.alignment="CENTER">
          <children>
             <MFXFontIcon fx:id="tickMark" description="mfx-variant9-mark" size="15.0" />
-            <Label fx:id="currentStatus" styleClass="mediamLabel" text="Current Java Home" />
-            <MFXProgressBar fx:id="progressBar" prefWidth="400.0" HBox.hgrow="ALWAYS" />
+            <Label fx:id="currentStatus" styleClass="mediamLabel" text="Current Java Home" HBox.hgrow="ALWAYS" />
+            <MFXProgressBar fx:id="progressBar" prefWidth="250.0" />
          </children>
          <BorderPane.margin>
             <Insets />

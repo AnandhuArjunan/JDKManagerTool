@@ -2,10 +2,10 @@
 * {
 
 
-	-primary-gradient:linear-gradient(to right bottom,#d2d2d2, #ced0d1, #cacecf, #c6ccce, #c1cbcc, #bdc9cb, #b9c7c9, #b5c5c8);
+	-primary-gradient:linear-gradient(to right bottom, #5c0052, #7e1156, #9c2858, #b84159, #cf5c5b, #e3785d, #f39662, #ffb56b);
 
 	-block-gradient: linear-gradient(to right bottom,#d1ccd2,#d6c1e8,#efd9f4);
-
+	
 	-ideblock-gradient: linear-gradient(to right bottom,#a9ebd0,#a6e2b5,#93e7a0);
 	-eclipseideblock-gradient: linear-gradient(to right bottom,#f2bdfc,#c7a6e2,#e5b7f1);
 	-androidideblock-gradient: linear-gradient(to right bottom,#189f39,#48e35c,#ebebeb);

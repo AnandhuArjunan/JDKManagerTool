@@ -12,7 +12,6 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.anandhuarjunan.workspacetool.persistance.models.Ides;
 import com.anandhuarjunan.workspacetool.persistance.models.JavaEnv;
-import com.anandhuarjunan.workspacetool.persistance.models.JavaTypes;
 import com.anandhuarjunan.workspacetool.persistance.models.KvStrSettings;
 import com.anandhuarjunan.workspacetool.persistance.models.WindowsIDE;
 import com.anandhuarjunan.workspacetool.persistance.models.Workspaces;
@@ -56,7 +55,6 @@ public class HibernateUtils {
 				configuration.addAnnotatedClass(WindowsIDE.class);
 				configuration.addAnnotatedClass(JavaEnv.class);
 				configuration.addAnnotatedClass(Ides.class);
-				configuration.addAnnotatedClass(JavaTypes.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();

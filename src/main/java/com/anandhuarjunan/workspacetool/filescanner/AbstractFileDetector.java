@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 import com.anandhuarjunan.workspacetool.util.Namable;
 
-public abstract class AbstractFileDetector implements Namable{
+public abstract class AbstractFileDetector {
 
 	private List<File> resultfiles = null;
 	private Consumer<File> allFileReadConsumer = null;
