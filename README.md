@@ -1,11 +1,9 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/beryx-gist/badass-jlink-example-richtextfx/blob/master/LICENSE)
-[![Build Status](https://img.shields.io/travis/beryx-gist/badass-jlink-example-richtextfx/master.svg?label=Build)](https://travis-ci.org/beryx-gist/badass-jlink-example-richtextfx)
 
 ## JDKManagerTool ## 
 
 It can be used to manage your locally installed JDKs , download and Install New JDK , Set Environment Variable Path. No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
 
-Note : Only Windows OS supported. For other OS use SDKMan - https://github.com/sdkman/sdkman-cli
+Note : Only for Windows OS. For other OS use SDKMan - https://github.com/sdkman/sdkman-cli
 
 
 
