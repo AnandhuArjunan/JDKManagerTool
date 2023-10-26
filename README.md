@@ -3,7 +3,11 @@
 
 It can be used to manage your locally installed JDKs , download and Install New JDK , Set Environment Variable Path. No more trawling download pages, extracting archives, messing with _HOME and PATH environment variables.
 
-Note : Only for Windows OS. For other OS use SDKMan - https://github.com/sdkman/sdkman-cli
+Note: Only for Windows OS. For other OS use SDKMan - https://github.com/sdkman/sdkman-cli
+
+
+<img src="screenshots/2n.png" alt="" width="800"/>
+<img src="/screenshots/1n.png" alt="" width="800"/>
 
 
 
